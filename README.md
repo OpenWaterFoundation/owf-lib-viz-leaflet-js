@@ -20,4 +20,4 @@ The repository contains multiple folders that contain examples of each type of v
 ## Additional Documentation
 
 See also:
-* [Leaflet Documentation](http://leafletjs.com/reference.html)
+* [Leaflet Documentation](http://leafletjs.com/reference.html) 

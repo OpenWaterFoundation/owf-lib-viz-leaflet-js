@@ -1,0 +1,160 @@
+<html>
+<head>
+    <title>Leaflet Point Map</title>
+
+    <!-- Include css files and a favicon icon -->
+    <link rel="stylesheet" href="css/leaflet.css" />
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/leaflet.zoomhome.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/L.Control.MousePosition.css"/>
+    
+    <!-- Include javascript files -->
+    <script src="javascript/leaflet.js"></script>
+    <script src="javascript/papaparse.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="javascript/leaflet.zoomhome.min.js"></script>
+    <script src="javascript/L.Control.MousePosition.js"></script>
+    <script src="javascript/leaflet-color-markers.js"></script>
+
+</head>
+
+<header>
+    <h1>Leaflet Point Map Example</h1>
+</header>
+
+<body>
+    <div id="mapid">
+        <script>
+            /* Variable called map. This is what creates the actual leaflet map */
+            var map = L.map('mapid', {zoomControl: false}).setView([38.99, -105.54], 7);
+
+            /* Tile Layer that is added to our map. In this case it is a mapbox streets tile layer. */
+            L.tileLayer('https://api.mapbox.com/styles/v1/korysam/cixur5uy7003g2sqwthpjmbxa/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia29yeXNhbSIsImEiOiJjaXd4dDRxbTQwMXRkMm9tZzd5b3BqdTBwIn0.A2EGyNrWG2Lbbd5c-I-94w', {
+                attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery &copy;<a href="http://mapbox.com">Mapbox</a>',
+                    maxZoom: 18
+                }).addTo(map);
+
+            /* Top Left Corner of Map. Allows for a home button to reset to the default zoom. */
+            var zoomHome = L.Control.zoomHome();
+            zoomHome.addTo(map);
+           
+            /* Bottom Right corner. This shows the current lat and long  of the mouse cursor. 
+            'º' used for the degree character when the latitude and longitude of the 
+            cursor is dispalyed. */
+            L.control.mousePosition({position: 'bottomright',lngFormatter: function(num) {
+                var direction = (num < 0) ? 'W' : 'E';
+                var formatted = Math.abs(L.Util.formatNum(num, 3)) + 'º ' + direction;
+                return formatted; 
+            },
+            latFormatter: function(num) {
+                var direction = (num < 0) ? 'S' : 'N';
+                var formatted = Math.abs(L.Util.formatNum(num, 3)) + 'º ' + direction;
+                return formatted;
+            }}).addTo(map);
+
+
+            /* Bottom Right corner. This shows the scale in km and miles of
+            the map. */
+            L.control.scale({position: 'bottomright',imperial: true}).addTo(map);
+
+            /* Add a single marker to the map displaying where Denver is. */
+            var Denver_Marker = L.marker([39.74,-104.99]).addTo(map);
+
+            /* Create a text pop-up for the Fort Collins Marker. Once clicked the text below will display on the map */
+            Denver_Marker.bindPopup("<b>Denver</b>");
+
+            /* Create three different marker's */
+            var red_marker = L.icon({
+                iconUrl: 'css/img/marker-icon-red.png'
+            });
+
+            var green_marker = L.icon({
+                iconUrl: 'css/img/marker-icon-green.png'
+            });
+
+            var black_marker = L.icon({
+                iconUrl: 'css/img/marker-icon-black.png'
+            })
+
+            /* Array containing all markers on map */
+            var markers = new Array();
+
+            /* Read in data and turn their lat/lng pairs into markers. Also add popups for each marker. */
+            $.get("data-files/data.csv", function(data){
+                var csvdata = Papa.parse(data, {
+                    dynamicTyping: true,
+                    skipEmptyLines: true
+                });
+                for(var index in csvdata.data)
+                {
+                    /* Don't include the header from the data.csv file */
+                    if(index != 0)
+                    {
+                        var lat = csvdata.data[index][0];
+                        var lng = csvdata.data[index][1];
+                        var popup_text = csvdata.data[index][2];
+                        var precipitation = csvdata.data[index][3];
+                        if(precipitation == "")
+                        {
+                            precipitation = 'N/A';
+                        }
+                        var icon;
+                        if(precipitation == 'N/A')
+                        {
+                            icon = black_marker;
+                        }
+                        else if(precipitation > 0 && precipitation < 2.0)
+                        {
+                            icon = green_marker;
+                        }
+                        else
+                        {
+                            icon = red_marker;
+                        }
+                        var popup_options = 
+                        {
+                            'maxWidth': '600'
+                        }
+                        var marker = L.marker([lat,lng], {icon: icon}).bindPopup("<b>Location ID: "+popup_text+"</b>" + "<br><b>Precipitation: " + precipitation + "</b>" + '<iframe width="600" height="300" scrolling="no" frameborder="no" src="https://fusiontables.google.com/embedviz?containerId=googft-gviz-canvas&amp;q=select+col0%2C+col2+from+1kvfOSBsOUQ6RVDriWjv69TBWVAeYawxM2QA-JP-P+where+col2+%3E%3D+0+and+col2+%3C%3D+0.33+order+by+col0+asc&amp;viz=GVIZ&amp;t=AREA&amp;rmax=250&amp;uiversion=2&amp;gco_forceIFrame=true&amp;gco_hasLabelsColumn=true&amp;width=600&amp;height=300"></iframe>' + '<a href="https://fusiontables.google.com/DataSource?docid=1kvfOSBsOUQ6RVDriWjv69TBWVAeYawxM2QA-JP-P#rows:id=1" target="_blank">Source</a>',popup_options);
+                        map.addLayer(marker);
+                        markers[marker._leaflet_id] = marker;
+                    }
+                }
+            });
+
+            /* function that filters out or in markers that contain no precipitation data */
+            var filter_mode = "out";
+            function filter_markers()
+            {
+                console.log(filter_mode);
+                var filter = "";
+                for(var index in markers)
+                {
+                    if(markers[index].options.icon.options.iconUrl == "css/img/marker-icon-black.png" && filter_mode == "out")
+                    {
+                        map.removeLayer(markers[index]);
+                        filter = "in";
+                    }
+                    else if(markers[index].options.icon.options.iconUrl == "css/img/marker-icon-black.png" && filter_mode == "in")
+                    {
+                        var lat = markers[index]._latlng.lat;
+                        var lng = markers[index]._latlng.lng;
+                        var popup = markers[index]._popup._content;
+                        var marker = L.marker([lat,lng], {icon: black_marker}).bindPopup(popup);
+                        map.addLayer(marker);
+                        markers[marker._leaflet_id] = marker;
+                        filter = "out";
+                    }
+                }
+                filter_mode = filter;
+            }
+        </script>
+    </div>
+    
+    <div class="wrapper">
+        <button class="button" onclick="filter_markers()">Filter No Precipitation Data Markers</button>
+    </div>
+</body>
+
+</html>
