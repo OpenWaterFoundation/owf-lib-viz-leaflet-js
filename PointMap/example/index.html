@@ -42,7 +42,7 @@
             /* Bottom Right corner. This shows the current lat and long  of the mouse cursor. 
             'º' used for the degree character when the latitude and longitude of the 
             cursor is dispalyed. */
-            L.control.mousePosition({position: 'bottomright',lngFormatter: function(num) {
+            L.control.mousePosition({position: 'bottomleft',lngFormatter: function(num) {
                 var direction = (num < 0) ? 'W' : 'E';
                 var formatted = Math.abs(L.Util.formatNum(num, 3)) + 'º ' + direction;
                 return formatted; 
@@ -56,7 +56,39 @@
 
             /* Bottom Right corner. This shows the scale in km and miles of
             the map. */
-            L.control.scale({position: 'bottomright',imperial: true}).addTo(map);
+            L.control.scale({position: 'bottomleft',imperial: true}).addTo(map);
+
+            /* Information hud in top right corner of the map */
+            var info = L.control();
+
+            info.onAdd = function (map) {
+                this._div = L.DomUtil.create('div', 'info-info'); // create a div with a class "info"
+                this.update();
+                return this._div;
+            };
+
+            // method that we will use to update the control based on feature properties passed
+            info.update = function (props) {
+                this._div.innerHTML = '<h4>Click on any marker to display the precipitation data associated with that station.</h4>';
+            };
+
+            info.addTo(map);
+
+            /* Bottom Left Corner. This shows the legend for the map */
+            var legend = L.control({position: 'bottomright'});
+
+            legend.onAdd = function (map) {
+
+                var div = L.DomUtil.create('div', 'info legend');
+                div.innerHTML += '<h4>Precipitation</h4>';
+                div.innerHTML += '<i style="background:' + '#000000' + '"></i> ' + "N/A<br><br>";
+                div.innerHTML += '<i style="background:' + '#FFFFFF' + '"></i> ' + "0<br><br>";
+                div.innerHTML += '<i style="background:' + '#006400' + '"></i> ' + "0.1-2.0<br><br>";
+                div.innerHTML += '<i style="background:' + '#FF0000' + '"></i> ' + "2.1+<br><br>";
+                return div;
+            };
+
+            legend.addTo(map);
 
             /* Add a single marker to the map displaying where Denver is. */
             var Denver_Marker = L.marker([39.74,-104.99]).addTo(map);
