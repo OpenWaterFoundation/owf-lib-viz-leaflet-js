@@ -1,0 +1,71 @@
+<html>
+<head>
+    <title>Leaflet Point Map</title>
+
+    <!-- Include css files and a favicon icon -->
+    <link rel="stylesheet" href="css/leaflet.css" />
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/leaflet.zoomhome.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/L.Control.MousePosition.css"/>
+    
+    <!-- Include javascript files -->
+    <script src="javascript/leaflet.js"></script>
+    <script src="javascript/papaparse.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="javascript/leaflet.zoomhome.min.js"></script>
+    <script src="javascript/L.Control.MousePosition.js"></script>
+    <script src="javascript/heatmap.min.js"></script>
+    <script src="javascript/leaflet-heatmap.js"></script>
+
+</head>
+
+<header>
+    <h1>Leaflet Heat Map Example</h1>
+</header>
+
+<body>
+    <div id="mapid">
+        <script>
+        $.get("data-files/data.csv",function(data){
+            var csvdata = Papa.parse(data, {
+                dynamicTyping: true,
+                skipEmptyLines: true,
+                header: true
+            })
+            console.log(csvdata);
+            var baseLayer = L.tileLayer(
+              'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+                attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+                maxZoom: 18
+              }
+            );
+            var cfg = {
+              // radius should be small ONLY if scaleRadius is true (or small radius is intended)
+              "radius": 15,
+              "maxOpacity": .3, 
+              // scales the radius based on map zoom
+              "scaleRadius": false, 
+              // if set to false the heatmap uses the global maximum for colorization
+              // if activated: uses the data maximum within the current map boundaries 
+              //   (there will always be a red spot with useLocalExtremas true)
+              "useLocalExtrema": true,
+              // which field name in your data represents the latitude - default "lat"
+              latField: 'latitude',
+              // which field name in your data represents the longitude - default "lng"
+              lngField: 'longitude',
+              // which field name in your data represents the data value - default "value"
+              valueField: 'Precip'
+            };
+            /* Create Heat Map Layer */
+            var heatmapLayer = new HeatmapOverlay(cfg);
+            heatmapLayer.setData(csvdata);
+            var map = new L.Map('mapid', {
+              center: new L.LatLng(40.50, -105.54),
+              zoom: 9,
+              layers: [baseLayer, heatmapLayer]
+            });
+        });
+    </script>
+  </body>
+</html>
