@@ -33,7 +33,6 @@
                 skipEmptyLines: true,
                 header: true
             })
-            console.log(csvdata);
             var baseLayer = L.tileLayer(
               'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
                 attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
@@ -60,11 +59,37 @@
             /* Create Heat Map Layer */
             var heatmapLayer = new HeatmapOverlay(cfg);
             heatmapLayer.setData(csvdata);
-            var map = new L.Map('mapid', {
-              center: new L.LatLng(40.50, -105.54),
-              zoom: 9,
-              layers: [baseLayer, heatmapLayer]
+
+            /* Basemap Layers */
+            var grayscale = L.tileLayer('https://api.mapbox.com/styles/v1/korysam/cixur5uy7003g2sqwthpjmbxa/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia29yeXNhbSIsImEiOiJjaXd4dDRxbTQwMXRkMm9tZzd5b3BqdTBwIn0.A2EGyNrWG2Lbbd5c-I-94w', {
+                id: 'MapID', 
+                attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery &copy;<a href="http://mapbox.com">Mapbox</a>'
+            }),
+            dark = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/dark-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia29yeXNhbSIsImEiOiJjaXd4dDRxbTQwMXRkMm9tZzd5b3BqdTBwIn0.A2EGyNrWG2Lbbd5c-I-94w', {
+                id: 'MapID', 
+                attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery &copy;<a href="http://mapbox.com">Mapbox</a>'
             });
+
+            /* Create a Leaflet Map. Center on Fort Collins and set zoom level to 7*/
+            var map = L.map('mapid', {
+                center: [38.99, -105.54],
+                zoom: 7,
+                layers: [baseLayer, heatmapLayer, grayscale, dark],
+                zoomControl: false
+            });
+
+            /* Object that contains grayscale and dark layer */
+            var baseMaps = {
+                "Grayscale": grayscale,
+                "Dark": dark
+            };
+
+            L.control.layers(baseMaps).addTo(map);
+
+            var baseMaps = {
+                "<span style='color: gray'>Grayscale</span>": grayscale,
+                "Dark": dark
+            };
         });
     </script>
   </body>
