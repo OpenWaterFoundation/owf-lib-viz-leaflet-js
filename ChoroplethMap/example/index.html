@@ -1,39 +1,226 @@
-<!DOCTYPE html>
 <html>
 <head>
-    <title>Leaflet.heat demo</title>
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
-    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
-    <style>
-        #map { width: 800px; height: 600px; }
-        body { font: 16px/1.4 "Helvetica Neue", Arial, sans-serif; }
-        .ghbtns { position: relative; top: 4px; margin-left: 5px; }
-        a { color: #0077ff; }
-    </style>
+    <title>Leaflet Choropleth Map</title>
+
+    <!-- Include css files and a favicon icon -->
+    <link rel="stylesheet" href="css/leaflet.css" />
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/leaflet.zoomhome.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/L.Control.MousePosition.css"/>
+    
+    <!-- Include javascript files -->
+    <script src="javascript/leaflet.js"></script>
+    <script src="javascript/papaparse.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="javascript/leaflet.zoomhome.min.js"></script>
+    <script src="javascript/L.Control.MousePosition.js"></script>
+    <script src="javascript/leaflet-color-markers.js"></script>
+
 </head>
+
+<header>
+    <h1>Leaflet Choropleth Map Example</h1>
+</header>
+
 <body>
+    <div id="mapid">
+        <script>
+            $.ajaxSetup({
+                async: false
+            });
 
-<p>
-    A 10,000-point demo of <a href="https://github.com/Leaflet/Leaflet.heat">Leaflet.heat</a>, a tiny and fast Leaflet heatmap plugin.
-    <iframe class="ghbtns" src="http://ghbtns.com/github-btn.html?user=Leaflet&amp;repo=Leaflet.heat&amp;type=watch&amp;count=true"
-  allowtransparency="true" frameborder="0" scrolling="0" width="90" height="20"></iframe>
-</p>
+            /* Basemap Layers */
+            var grayscale = L.tileLayer('https://api.mapbox.com/styles/v1/korysam/cixur5uy7003g2sqwthpjmbxa/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia29yeXNhbSIsImEiOiJjaXd4dDRxbTQwMXRkMm9tZzd5b3BqdTBwIn0.A2EGyNrWG2Lbbd5c-I-94w', {
+                id: 'MapID', 
+                attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery &copy;<a href="http://mapbox.com">Mapbox</a>'
+            }),
+            dark = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/dark-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia29yeXNhbSIsImEiOiJjaXd4dDRxbTQwMXRkMm9tZzd5b3BqdTBwIn0.A2EGyNrWG2Lbbd5c-I-94w', {
+                id: 'MapID', 
+                attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery &copy;<a href="http://mapbox.com">Mapbox</a>'
+            });
 
-<div id="map"></div>
+            /* Create a Leaflet Map. Center on Fort Collins and set zoom level to 7*/
+            var map = L.map('mapid', {
+                center: [38.99, -105.54],
+                zoom: 7,
+                layers: [grayscale, dark]
+            });
 
-<!-- <script src="../node_modules/simpleheat/simpleheat.js"></script>
-<script src="../src/HeatLayer.js"></script> -->
+            /* Object that contains grayscale and dark layer */
+            var baseMaps = {
+                "Grayscale": grayscale,
+                "Dark": dark
+            };
 
-<script src="../dist/leaflet-heat.js"></script>
+            /* Add layers to the map */
+            L.control.layers(baseMaps).addTo(map);
 
-<script src="http://leaflet.github.io/Leaflet.markercluster/example/realworld.10000.js"></script>
-<script>
-var map = L.map('map').setView([-37.87, 175.475], 12);
-var tiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-}).addTo(map);
-addressPoints = addressPoints.map(function (p) { return [p[0], p[1]]; });
-var heat = L.heatLayer(addressPoints).addTo(map);
-</script>
+            var baseMaps = {
+                "<span style='color: gray'>Grayscale</span>": grayscale,
+                "Dark": dark
+            };
+
+            /* Top Left Corner of Map. Allows for a home button to reset to the default zoom. */
+            var zoomHome = L.Control.zoomHome();
+            zoomHome.addTo(map);
+           
+            /* Bottom Right corner. This shows the current lat and long  of the mouse cursor. 
+            'º' used for the degree character when the latitude and longitude of the 
+            cursor is dispalyed. */
+            L.control.mousePosition({position: 'bottomleft',lngFormatter: function(num) {
+                var direction = (num < 0) ? 'W' : 'E';
+                var formatted = Math.abs(L.Util.formatNum(num, 3)) + 'º ' + direction;
+                return formatted; 
+            },
+            latFormatter: function(num) {
+                var direction = (num < 0) ? 'S' : 'N';
+                var formatted = Math.abs(L.Util.formatNum(num, 3)) + 'º ' + direction;
+                return formatted;
+            }}).addTo(map);
+
+
+            /* Bottom Right corner. This shows the scale in km and miles of
+            the map. */
+            L.control.scale({position: 'bottomleft',imperial: true}).addTo(map);
+
+            /* getColor is called by the onEachFeature function. This is what controls 
+            the color of each basin depending on the  Mean SME data value. 
+            This also controls the colors that are shown in the legend. */
+            function getColor(d) {
+                if(d == undefined)
+                {
+                    return '#000000';
+                }
+                return d < 5000 ? '#FFFFFF':
+                d < 12000 ? '#eff3ff':
+                d < 20000 ? '#bdd7e7':
+                d < 45000 ? '#6baed6':
+                '#2171b5';
+            }
+
+            /* This feature is called by the onEachFeature function. It is what allows users to 
+                highlight over basins and will pop up a gray line outlining the basin. */
+            function highlightFeature(e) {
+                var layer = e.target;
+                layer.setStyle({
+                    weight: 6,
+                    color: '#666',
+                    dashArray: '',
+                    
+                });
+
+                if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                    layer.bringToFront();
+                }
+                info.update(layer.feature.properties);
+            }
+
+            /* This function is also called by the onEachFeature function. It is used
+            once a basin has been highlighted over, then the user moves the mouse it will
+            reset the layer back to the original state. */
+            function resetHighlight(e) {
+                if(!e.target.feature.properties.hasBeenSelected)
+                {
+                    counties.resetStyle(e.target);
+                    info.update();
+                }
+            }
+
+            /* This function is used when adding the SNODAS data from a csv file to the map. It makes every object
+            in the data have these certain "properties". So each object will have a mouseover,
+            mouseout, and click property. All of these properties allow users to highlight over
+            basins, and click on basins to zoom in on  them */
+            function onEachFeature(feature, layer) {
+                layer.on({
+                    mouseover: highlightFeature,
+                    mouseout: resetHighlight
+                });
+            }
+
+            /* This function is used for the CO_boundary style. It sets the weight of the line used
+            to border Colorado, the color of that line, and sets the fill opacity to 0. */
+            function setCountyBoundariesStyle(feature){
+                return {
+                    fillColor: getColor(feature.properties.Total),
+                    weight: 3, 
+                    color: 'black',
+                    fillOpacity: 0.6,
+                };
+            }
+
+            /* Get Boundary data of Colorado Counties */
+           var Colorado_Counties = (function() {
+                    var result;
+                    $.getJSON("data-files/colorado_counties.geojson",function(data) {
+                        result = data;
+                    }); return result;
+            })();
+
+            var Colorado_Population;
+            $.get("data-files/colorado_population.csv",function(data)
+            {
+                Colorado_Population = Papa.parse(data, {dynamicTyping: true, header: true, skipEmptyLines: true, quotes: true});
+            });
+
+            var counties = L.geoJson(MergeData(Colorado_Counties,Colorado_Population),{style: setCountyBoundariesStyle, onEachFeature: onEachFeature}).addTo(map);
+
+            /* This funtion takes in a SNODAS Geometry geojson array and an array that contains the data from
+            the SnowpackStatisticsByDate/YYYYMMDD CSV file that contains data for each basin. Both of the 
+            paramaters are arrays and will be iterated using a nested for loop. 
+            This function will iterate through and match each basin with its proper data. */
+            function MergeData(Counties, Population)
+            {
+                for(var index in Counties.features)
+                {
+                    for(var index2 in Population["data"])
+                    {
+                        if(Counties.features[index]["properties"]["name"] == Population["data"][index2]["Area"])
+                        {
+                            for(var key in Population["data"][index2])
+                            {
+                                Counties.features[index]["properties"][key] = Population["data"][index2][key];
+                            }
+                        }
+                    }
+                }
+                return Counties;
+            }
+
+            /* Information hud in bottom right corner of the map */
+            var info = L.control({position: 'bottomright'});
+
+            info.onAdd = function (map) {
+                this._div = L.DomUtil.create('div', 'info-info'); // create a div with a class "info"
+                this.update();
+                return this._div;
+            };
+
+            info.update = function (props) {
+                this._div.innerHTML = '<h4>County Information</h4>' + (props ? '<br><b>County Name: </b>' + props.name + ' County' + '<br><br><b>Population: </b>' + Number(props.Total).toLocaleString('en-US') : 'Hover over a county');
+            };
+
+            info.addTo(map);
+
+            /* Top Right Corner. This shows the legend for the map */
+            var legend = L.control({position: 'topright'});
+
+            legend.onAdd = function(map) {
+
+                var div = L.DomUtil.create('div', 'info legend');
+                div.innerHTML += '<h4>Population</h4>';
+                div.innerHTML += '<i style="background:' + '#000000' + '"></i> ' + "N/A<br><br>";
+                div.innerHTML += '<i style="background:' + '#FFFFFF' + '"></i> ' + "0 - 5,000<br><br>";
+                div.innerHTML += '<i style="background:' + '#eff3ff' + '"></i> ' + "5,000 - 12,000<br><br>";
+                div.innerHTML += '<i style="background:' + '#bdd7e7' + '"></i> ' + "12,000 - 20,000<br><br>";
+                div.innerHTML += '<i style="background:' + '#6baed6' + '"></i> ' + "20,000 - 45,000<br><br>";
+                div.innerHTML += '<i style="background:' + '#2171b5' + '"></i> ' + "245,000+<br><br>";
+                return div;
+            };
+
+            legend.addTo(map);
+
+        </script>
+    </div>
 </body>
-</html>
+

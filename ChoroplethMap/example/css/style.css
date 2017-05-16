@@ -14,7 +14,7 @@ header h1 {
 
 .button {
     position: relative;
-    left: -19.9%;
+    left: -21.9%;
 }
 
 .legend {
@@ -45,7 +45,7 @@ header h1 {
     box-shadow: 0 0 15px rgba(0,0,0,0.2);
     border-radius: 5px;
     height: 100px;
-    width: 135px;
+    width: 150px;
 }
 
 .info-info h4 {
