@@ -26,6 +26,7 @@
 <body>
     <div id="mapid">
         <script>
+            // turn asynchronous mode off
             $.ajaxSetup({
                 async: false
             });
@@ -166,8 +167,8 @@
 
             var counties = L.geoJson(MergeData(Colorado_Counties,Colorado_Population),{style: setCountyBoundariesStyle, onEachFeature: onEachFeature}).addTo(map);
 
-            /* This funtion takes in a SNODAS Geometry geojson array and an array that contains the data from
-            the SnowpackStatisticsByDate/YYYYMMDD CSV file that contains data for each basin. Both of the 
+            /* This funtion takes in a geojson array and an array that contains the data from
+            the colorado_population CSV file that contains data for each county. Both of the 
             paramaters are arrays and will be iterated using a nested for loop. 
             This function will iterate through and match each basin with its proper data. */
             function MergeData(Counties, Population)
