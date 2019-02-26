@@ -1,4 +1,6 @@
-## What is a Heat Map
+## Heat-Map
+
+![](README-docs/Heat-Map.png)
 
 Heatmaps visualise data through variations in coloring. When applied to a tabular format, Heatmaps are useful for cross-examining multivariate data, through placing variables in the rows and columns, and coloring the cells within the table. Heatmaps are good for showing variance across multiple variables, revealing any patterns, displaying whether any variables are similar to each other, and for detecting if any correlations exists in-between them.
 

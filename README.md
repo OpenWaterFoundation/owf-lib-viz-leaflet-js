@@ -1,6 +1,16 @@
 # owf-lib-viz-leaflet-js
 Open Water Foundation JavaScript visualization library based on Leaflet
 
+### Table of Contents
+The repository contains multiple folders that contain examples of each type of visualization.
+
+| Preview Link | Description |
+|---------|-------------------------------------------------------------------------|
+|<center>**[Choropleth-Map](Choropleth-Map)**<center><br>[![button](README-docs/Choropleth-MapSmall.png)](Choropleth-Map)| Choropleth Maps display divided geographical areas or regions that are colored, shaded, or patterned in relation to a data variable.                             |
+|<center>**[Heat-Map](Heat-Map)**<center><br>[![button](README-docs/Heat-MapSmall.png)](Heat-Map)| Heatmaps visualize data through variations in coloring.                             |
+|<center>**[Point-Map](Point-Map)**<center><br>[![button](README-docs/Point-MapSmall.png)](Point-Map)| Point Maps are a way of detecting spatial patterns or the distribution of data over a geographical region.           |
+|<center>**[Dynamic-Zoom-Map](Dynamic-Zoom-Map)**<center><br>[![button](README-docs/Dynamic-Zoom-MapSmall.png)](Dynamic-Zoom-Map)| This map features icons that update based on the map's zoom level.             |
+
 ## Getting Started
 
 A standard development folder structure is recommended. The website development files can be set up as follows (Windows is assumed, but linux would be similar):
@@ -14,8 +24,6 @@ A standard development folder structure is recommended. The website development 
 > cd git-repos
 > git clone https://github.com/OpenWaterFoundation/owf-lib-viz-leaflet-js
 ```
-
-The repository contains multiple folders that contain examples of each type of visualization.
 
 ## Sign Up For Mapbox and Create A New Style
 
@@ -31,4 +39,4 @@ Leaflet is an open source web mapping library that forms the basis of Mapbox.js.
 
 See also:
 * [Leaflet Documentation](http://leafletjs.com/reference.html)
-* [Mapbox Documentation](https://www.mapbox.com/help/) 
+* [Mapbox Documentation](https://www.mapbox.com/help/)

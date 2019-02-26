@@ -1,4 +1,6 @@
-## What is a Point Map
+## Point-Map
+
+![](README-docs/Point-Map.png)
 
 Point Maps are a way of detecting spatial patterns or the distribution of data over a geographical region, by placing equally sized points over a geographical region.
 

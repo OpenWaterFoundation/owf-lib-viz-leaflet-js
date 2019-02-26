@@ -1,4 +1,6 @@
-## What is a Choropleth Map
+## Choropleth-Map
+
+![](README-docs/Choropleth-Map.png)
 
 Choropleth Maps display divided geographical areas or regions that are colored, shaded, or patterned in relation to a data variable. This provides a way to visualize values over a geographical area, which can show variation or patterns across the displayed location.
 
