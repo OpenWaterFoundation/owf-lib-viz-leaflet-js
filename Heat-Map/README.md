@@ -1,4 +1,5 @@
 ## Heat-Map
+<a href="http://github.openwaterfoundation.org/owf-lib-viz-leaflet-js/Heat-Map/site/"><b>See a Live Demo of this Example</b></a>
 
 ![](README-docs/Heat-Map.png)
 

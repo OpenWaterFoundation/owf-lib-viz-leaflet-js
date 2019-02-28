@@ -1,4 +1,5 @@
 ## Point-Map
+<a href="http://github.openwaterfoundation.org/owf-lib-viz-leaflet-js/Point-Map/site/"><b>See a Live Demo of this Example</b></a>
 
 ![](README-docs/Point-Map.png)
 
