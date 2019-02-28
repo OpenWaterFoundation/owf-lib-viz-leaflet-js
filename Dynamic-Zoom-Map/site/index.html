@@ -8,12 +8,12 @@
     <link rel="stylesheet" href="css/leaflet.zoomhome.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/L.Control.MousePosition.css"/>
-    
+
     <!-- Include javascript files -->
     <script src="javascript/leaflet.js"></script>
     <script src="javascript/papaparse.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    
+
     <script src="javascript/leaflet.zoomhome.min.js"></script>
     <script src="javascript/L.Control.MousePosition.js"></script>
     <!--<script src="javascript/leaflet-color-markers.js"></script> -->
@@ -70,11 +70,6 @@
             L.control.layers(baseMaps).addTo(mymap);
 
 
-
-
-
-
-
                /* Get Basin data */
            var Water_Basin = (function() {
                     var result;
@@ -117,9 +112,6 @@
                 return L.marker(latlng, { icon: largeIcon })
             }
 
-
-
-
             let station_options = {
                 pointToLayer: createCustomIcon,
                 onEachFeature: onEachFeatureStation
@@ -153,7 +145,7 @@
             }
 
 
-            /* This feature is called by the onEachFeature function. It is what allows users to 
+            /* This feature is called by the onEachFeature function. It is what allows users to
                 highlight over basins and will pop up a gray line outlining the basin. */
             function highlightFeature(e) {
 
@@ -167,7 +159,7 @@
                     weight: 4,
                     color: 'blue',
                     dashArray: '',
-                    
+
                 });
                 if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
                     layer.bringToFront();
@@ -188,9 +180,9 @@
                     weight: 6,
                     color: '#666',
                     dashArray: '',
-                    
+
                 });
-                
+
             }
 
             /* Information hud in bottom right corner of the map */
@@ -245,14 +237,14 @@
 
 
 
-            
+
             var zoomHome = L.Control.zoomHome();
             zoomHome.addTo(mymap);
 
             L.control.mousePosition({position: 'bottomleft',lngFormatter: function(num) {
                 var direction = (num < 0) ? 'W' : 'E';
                 var formatted = Math.abs(L.Util.formatNum(num, 6)) + '&deg ' + direction;
-                return formatted; 
+                return formatted;
             },
             latFormatter: function(num) {
                 var direction = (num < 0) ? 'S' : 'N';
