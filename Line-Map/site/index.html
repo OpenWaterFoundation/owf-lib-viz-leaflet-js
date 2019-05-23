@@ -1,8 +1,8 @@
 <html>
 <head>
-    <title>Multipolygon Symbol Map</title>
+    <title>Line Map</title>
 
-    <!-- Include css files -->
+    <!-- Include css files and a favicon icon -->
     <link rel="stylesheet" href="css/leaflet.css" />
     <link rel="stylesheet" href="css/style.css"/>
     <link rel="stylesheet" href="css/leaflet.zoomhome.css"/>
@@ -18,7 +18,7 @@
 </head>
 
 <header>
-    <h1>Leaflet Multipolygon Symbol Map Example</h1>
+    <h1>Leaflet Line Map Example</h1>
 </header>
 
 <body>
@@ -52,7 +52,7 @@
             }}).addTo(map);
 
 
-            /* Bottom Right corner. This shows the scale in km and miles of
+            /* Bottom Left corner. This shows the scale in km and miles of
             the map. */
             L.control.scale({position: 'bottomleft',imperial: true}).addTo(map);
 
@@ -86,7 +86,7 @@
 
             /* Reads in .json file which describes the format of the map */
             $.ajax({
-                url: "maps/polygon_layers_2019-05-15.json",
+                url: "maps/line_layers_2019-05-15.json",
                 async: false,
                 dataType: 'json',
                 error: function(error){
@@ -97,42 +97,41 @@
                     for(var i = 0; i < (json.layers).length; i++){
                         /* Set the default values */
                         let this_weight = 2;            // outline width in pixels
-                        let this_opacity = 0.5;         // outline opacity
-                        let this_color = 'blue';        // outline color
-                        let this_fillOpacity = 0.1;     // fill opacity
-                        let this_fillColor = 'blue';    // fill color
+                        let this_opacity = 1;           // opacity of outline
+                        let this_color = 'blue';       // color of outline
+                        let this_fillOpacity = 0.3;     // opacity of shape interior
+                        let this_fillColor = 'blue';     // color of shape interior
                                                 /* For more options see path options in https://leafletjs.com/reference-1.5.0.html#path-color */
-                    
+
                         /* If a value is specified in the .json file, override the default value */
                         if(isValidNumber(json.layerViewGroups[0].layerViews[i].symbol.lineWidth))
                             this_weight = json.layerViewGroups[0].layerViews[i].symbol.lineWidth;
-                        if(isValidColor(json.layerViewGroups[0].layerViews[i].symbol.outlineColor))
-                            this_color = json.layerViewGroups[0].layerViews[i].symbol.outlineColor;
                         if(isValidColor(json.layerViewGroups[0].layerViews[i].symbol.color))
                             this_fillColor = json.layerViewGroups[0].layerViews[i].symbol.color;
+                        if(isValidColor(json.layerViewGroups[0].layerViews[i].symbol.outlineColor))
+                            this_color = json.layerViewGroups[0].layerViews[i].symbol.outlineColor;
                         if(isValidNumber(json.layerViewGroups[0].layerViews[i].symbol.opacity))
                             this_opacity = json.layerViewGroups[0].layerViews[i].symbol.opacity;
                         if(isValidNumber(json.layerViewGroups[0].layerViews[i].symbol.fillOpacity))
                             this_fillOpacity = json.layerViewGroups[0].layerViews[i].symbol.fillOpacity;
-                        
-                        names.push(json.layerViewGroups[0].layerViews[i].displayName);
+
+                        names.push(json.layers[0].displayName);
                         colors.push(json.layerViewGroups[0].layerViews[i].symbol.color);
 
                         /* Get the geoJSON data corresponding to the .json layer the loop is currently on
-                        and for each data point create a polygon using the attributes above */
+                        and for each data point create a marker using the attributes above */
                         $.getJSON(json.layers[i].source,function(data){
-                            let boundariesLayer = L.geoJSON(data, {
-                                weight: this_weight,
-                                opacity: this_opacity,
-                                color: this_color,
-                                fillOpacity: this_fillOpacity,
-                                fillColor: this_fillColor
+                            let geolayer = L.geoJSON(data, {
+                                    weight: this_weight,
+                                    opacity: this_opacity,
+                                    color: this_color,
+                                    fillOpacity: this_fillOpacity,
+                                    fillColor: this_fillColor
                                 }).addTo(map);
                         });
                     }
                 }
             });
-
             /* Bottom Right Corner. This shows the legend for the map */
             var legend = L.control({position: 'bottomright'});
 

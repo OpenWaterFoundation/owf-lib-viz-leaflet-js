@@ -13,6 +13,7 @@ The repository contains multiple folders that contain examples of each type of v
 |<center>**[Cluster-Map](Cluster-Map)**<center><br>[![button](README-docs/Cluster-Map.png)](Cluster-Map)| This map clusters together icons when zoomed out.     |
 |<center>**[Shape-Point-Map](Shape-Point-Map)**<center><br>[![button](README-docs/Shape-Point-Map.png)](Shape-Point-Map)| This map has customizable shapes instead of traditional icons.     |
 |<center>**[Multipolygon-Symbol-Map](Multipolygon-Symbol-Map)**<center><br>[![button](README-docs/Multipolygon-Symbol-Map.png)](Multipolygon-Symbol-Map)| This map shows how to display geoJSON multipolygons.     |
+|<center>**[Line-Map](Line-Map)**<center><br>[![button](README-docs/Line-Map.png)](Line-Map)| This map shows how to display geoJSON lines.     |
 
 
 ## Getting Started
