@@ -12,7 +12,8 @@ The repository contains multiple folders that contain examples of each type of v
 |<center>**[Dynamic-Zoom-Map](Dynamic-Zoom-Map)**<center><br>[![button](README-docs/Dynamic-Zoom-MapSmall.png)](Dynamic-Zoom-Map)| This map features icons that update based on the map's zoom level.             |
 |<center>**[Cluster-Map](Cluster-Map)**<center><br>[![button](README-docs/Cluster-Map.png)](Cluster-Map)| This map clusters together icons when zoomed out.     |
 |<center>**[Shape-Point-Map](Shape-Point-Map)**<center><br>[![button](README-docs/Shape-Point-Map.png)](Shape-Point-Map)| This map has customizable shapes instead of traditional icons.     |
-|<center>**[Multipolygon-Symbol-Map](Multipolygon-Symbol-Map)**<center><br>[![button](README-docs/Multipolygon-Symbol-Map.png)](Multipolygon-Symbol-Map)| This map shows how to display geoJSON multipolygons.     |
+|<center>**[Multipolygon-Symbol-Map](Multipolygon-Symbol-Map)**<center><br>[![button](README-docs/Multipolygon-Symbol-Map.png)](Multipolygon-Symbol-Map)| This map shows how to display geoJSON multipolygons using a .json file to format how the layers should be displayed.  |
+|<center>**[Line-Map](Line-Map)**<center><br>[![button](README-docs/Line-Map.png)](Line-Map)| This map shows how to display geoJSON lines using a .json file to format how the layers should be displayed.     |
 
 
 ## Getting Started

@@ -58,6 +58,102 @@
             the map. */
             L.control.scale({position: 'bottomleft',imperial: true}).addTo(map);
 
+            /* Checks is color option is empty or not a valid color */
+            function isValidColor(strColor) {
+                if(strColor == ""){
+                    return false;
+                }
+                var s = new Option().style;
+                s.color = strColor;
+                var test1 = s.color == strColor.toLowerCase();
+                var test2 = /^#[0-9A-F]{6}$/i.test(strColor);
+                if(test1 == true || test2 == true){
+                    return true;
+                } else{
+                    return false;
+                }
+            }
+
+            /* Checks is number option is empty or not a valid number */
+            function isValidNumber(strNum){
+                if(strNum == ""){
+                    return false;
+                }
+                return !isNaN(strNum);
+            }
+
+            /* Checks is shape option is empty or not a valid shape */
+            function isValidShape(strShape){
+                if(strShape == 'diamond' || strShape == 'square' || strShape == 'triangle' || strShape == 'triangle-up' || strShape == 'triangle-down' || strShape == 'circle' || strShape == 'x'){
+                    return true;
+                }
+                return false;
+            }  
+
+            /* These arrays are used to hold values which will later be used in the key of the map */
+            var names = [];
+            var colors = [];
+
+            /* Reads in .json file which describes the format of the map */
+            $.ajax({
+                url: "maps/point_layers_2019-05-15.json",
+                async: false,
+                dataType: 'json',
+                error: function(error){
+                    throw new Error(error);
+                },
+                success: function(json){
+                    /* Loops through the layers decribed in the .json file */
+                    for(var i = 1; i < (json.layers).length; i++){
+                        /* Set the default values */
+                        let this_weight = 2;            // outline width in pixels
+                        let this_opacity = 1;           // opacity of outline
+                        let this_color = 'black';       // color of outline
+                        let this_fillOpacity = 0.3;     // opacity of shape interior
+                        let this_fillColor = 'red';     // color of shape interior
+                        let this_shape = 'diamond';     // style of shape (only avaliable with leaflet-svg-shape-markers.min.js)
+                        let this_radius = 5;            // size of shape
+                                                /* For more options see path options in https://leafletjs.com/reference-1.5.0.html#path-color */
+
+                        /* If a value is specified in the .json file, override the default value */
+                        if(isValidNumber(json.layerViewGroups[0].layerViews[i].symbol.lineWidth))
+                            this_weight = json.layerViewGroups[0].layerViews[i].symbol.lineWidth;
+                        if(isValidColor(json.layerViewGroups[0].layerViews[i].symbol.color))
+                            this_fillColor = json.layerViewGroups[0].layerViews[i].symbol.color;
+                        if(isValidColor(json.layerViewGroups[0].layerViews[i].symbol.outlineColor))
+                            this_color = json.layerViewGroups[0].layerViews[i].symbol.outlineColor;
+                        if(isValidNumber(json.layerViewGroups[0].layerViews[i].symbol.size))
+                            this_radius = json.layerViewGroups[0].layerViews[i].symbol.size;
+                        if(isValidShape(json.layerViewGroups[0].layerViews[i].symbol.marker))
+                            this_shape = json.layerViewGroups[0].layerViews[i].symbol.marker;
+                        if(isValidNumber(json.layerViewGroups[0].layerViews[i].symbol.opacity))
+                            this_opacity = json.layerViewGroups[0].layerViews[i].symbol.opacity;
+                        if(isValidNumber(json.layerViewGroups[0].layerViews[i].symbol.fillOpacity))
+                            this_fillOpacity = json.layerViewGroups[0].layerViews[i].symbol.fillOpacity;
+
+                        names.push(json.layerViewGroups[0].layerViews[i].layerId);
+                        colors.push(json.layerViewGroups[0].layerViews[i].symbol.color);
+
+                        /* Get the geoJSON data corresponding to the .json layer the loop is currently on
+                        and for each data point create a marker using the attributes above */
+                        $.getJSON(json.layers[i].source,function(data){
+                            let geolayer = L.geoJSON(data, {
+                            pointToLayer: function(feature, latlng) {
+                                let geomarker = L.shapeMarker(latlng, {
+                                    weight: this_weight,
+                                    opacity: this_opacity,
+                                    color: this_color,
+                                    fillOpacity: this_fillOpacity,
+                                    fillColor: this_fillColor,
+                                    shape: this_shape,
+                                    radius: this_radius
+                                }).addTo(map);
+                            }
+                            })
+                        });
+                    }
+                }
+            });
             /* Bottom Right Corner. This shows the legend for the map */
             var legend = L.control({position: 'bottomright'});
 
@@ -65,49 +161,13 @@
 
                 var div = L.DomUtil.create('div', 'info legend');
                 div.innerHTML += '<h4>Key</h4>';
-                div.innerHTML += '<i style="background:' + 'black' + '"></i> ' + "Active Ditches<br><br>";
-                div.innerHTML += '<i style="background:' + 'red' + '"></i> ' + "Reservoirs<br><br>";
+                for(var j = 0; j < names.length; j++){
+                    div.innerHTML += '<i style="background:' + colors[j] + '"></i> ' + names[j] + "<br><br>";
+                }
                 return div;
             };
 
             legend.addTo(map);
-
-            /* Get the data from active-ditches.geojson */
-            $.getJSON("data-files/active-ditches.geojson",function(data){
-                var ditchLayer = L.geoJSON(data, {
-                pointToLayer: function(feature, latlng) {
-                    var ditchMarker = L.shapeMarker(latlng, {
-                        weight: 2,          // outline width in pixels
-                        opacity: 1,         // opacity of outline
-                        color: 'black',     // color of outline
-                        fillOpacity: 0.3,   // opacity of shape interior
-                        fillColor: 'black', // color of shape interior
-                        shape: "diamond",   // style of shape (only avaliable with leaflet-svg-shape-markers.min.js)
-                        radius: 5           // size of shape
-                                            /* For more options see path options in https://leafletjs.com/reference-1.5.0.html#path-color */
-                    }).addTo(map);
-                    ditchMarker.bindPopup(feature.properties.structureName);
-                }
-                })
-            });
-
-            /* Get the data from reservoir-levels.geojson */
-            $.getJSON("data-files/reservoir-levels.geojson",function(data){
-                var reservoirLayer = L.geoJSON(data, {
-                pointToLayer: function(feature, latlng) {
-                    var reservoirMarker = L.shapeMarker(latlng, {
-                        weight: 2,
-                        opacity: 1,
-                        color: 'red',
-                        fillOpacity: 0.3,
-                        fillColor: 'red',
-                        shape: "circle",
-                        radius: 5
-                    }).addTo(map);
-                    reservoirMarker.bindPopup(feature.properties.Name);
-                }
-                })
-            });
         </script>
     </div>
 </body>
