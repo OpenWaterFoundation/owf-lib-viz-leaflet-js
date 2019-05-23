@@ -1,7 +1,7 @@
 ## Multipolygon-Symbol-Map
-<a href="http://github.openwaterfoundation.org/owf-lib-viz-leaflet-js/Multipolygon-Symbol-Map/site/"><b>See a Live Demo of this Example</b></a>
+<a href="http://github.openwaterfoundation.org/owf-lib-viz-leaflet-js/Polygon-Symbol-Map/site/"><b>See a Live Demo of this Example</b></a>
 
-![](README-docs/Multipolygon-Symbol-Map.png)
+![](README-docs/Polygon-Symbol-Map.png)
 
 This map uses a .json format file and a .geojson file to create polygon data on a map.
 

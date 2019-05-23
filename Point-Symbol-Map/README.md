@@ -1,7 +1,7 @@
 ## Shape-Point-Map
-<a href="http://github.openwaterfoundation.org/owf-lib-viz-leaflet-js/Shape-Point-Map/site/"><b>See a Live Demo of this Example</b></a>
+<a href="http://github.openwaterfoundation.org/owf-lib-viz-leaflet-js/Point-Symbol-Map/site/"><b>See a Live Demo of this Example</b></a>
 
-![](README-docs/Shape-Point-Map.png)
+![](README-docs/Point-Symbol-Map.png)
 
 Instead of the traditional icons this map uses shapes to represent points. The shape, color, and size can be changed.
 
