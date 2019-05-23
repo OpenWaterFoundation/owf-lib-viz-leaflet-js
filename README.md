@@ -11,9 +11,9 @@ The repository contains multiple folders that contain examples of each type of v
 |<center>**[Point-Map](Point-Map)**<center><br>[![button](README-docs/Point-MapSmall.png)](Point-Map)| Point Maps are a way of detecting spatial patterns or the distribution of data over a geographical region.           |
 |<center>**[Dynamic-Zoom-Map](Dynamic-Zoom-Map)**<center><br>[![button](README-docs/Dynamic-Zoom-MapSmall.png)](Dynamic-Zoom-Map)| This map features icons that update based on the map's zoom level.             |
 |<center>**[Cluster-Map](Cluster-Map)**<center><br>[![button](README-docs/Cluster-Map.png)](Cluster-Map)| This map clusters together icons when zoomed out.     |
-|<center>**[Shape-Point-Map](Shape-Point-Map)**<center><br>[![button](README-docs/Shape-Point-Map.png)](Shape-Point-Map)| This map has customizable shapes instead of traditional icons.     |
+|<center>**[Point-Symbol-Map](Point-Symbol-Map)**<center><br>[![button](README-docs/Point-Symbol-Map.png)](Point-Symbol-Map)| This map has customizable shapes instead of traditional icons.     |
 |<center>**[Polygon-Symbol-Map](Polygon-Symbol-Map)**<center><br>[![button](README-docs/Polygon-Symbol-Map.png)](Polygon-Symbol-Map)| This map shows how to display geoJSON multipolygons using a .json file to format how the layers should be displayed.  |
-|<center>**[Line-Map](Line-Symbol-Map)**<center><br>[![button](README-docs/Line-Symbol-Map.png)](Line-Symbol-Map)| This map shows how to display geoJSON lines using a .json file to format how the layers should be displayed.     |
+|<center>**[Line-Map](Line-Map)**<center><br>[![button](README-docs/Line-Map.png)](Line-Map)| This map shows how to display geoJSON lines using a .json file to format how the layers should be displayed.     |
 
 
 ## Getting Started

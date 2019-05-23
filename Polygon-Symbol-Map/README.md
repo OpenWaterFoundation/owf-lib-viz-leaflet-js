@@ -1,4 +1,4 @@
-## Multipolygon-Symbol-Map
+## Polygon-Symbol-Map
 <a href="http://github.openwaterfoundation.org/owf-lib-viz-leaflet-js/Polygon-Symbol-Map/site/"><b>See a Live Demo of this Example</b></a>
 
 ![](README-docs/Polygon-Symbol-Map.png)

@@ -1,4 +1,4 @@
-## Shape-Point-Map
+## Point-Symbol-Map
 <a href="http://github.openwaterfoundation.org/owf-lib-viz-leaflet-js/Point-Symbol-Map/site/"><b>See a Live Demo of this Example</b></a>
 
 ![](README-docs/Point-Symbol-Map.png)
