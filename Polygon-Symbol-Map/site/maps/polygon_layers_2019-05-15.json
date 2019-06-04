@@ -12,6 +12,15 @@
   },
   "layers": [
     {
+      "geolayerId": "drought",
+      "name": "drought-monitor",
+      "displayName": "Drought Monitor",
+      "description": "Current drought conditions from the U.S. Drought Monitor",
+      "source": "maps/polygon-layers-map/drought-monitor.geojson",
+      "sourceType": "GeoJSON",
+      "featureType": "polygon"
+    },
+    {
       "geolayerId": "municipal_boundaries",
       "name": "municipal-boundaries",
       "displayName": "Municipal Boundaries",
@@ -28,15 +37,6 @@
       "source": "maps/polygon-layers-map/ditchserviceareas-district03.geojson",
       "sourceType": "GeoJSON",
       "featureType": "polygon"
-    },
-    {
-      "geolayerId": "drought",
-      "name": "drought-monitor",
-      "displayName": "Drought Monitor",
-      "description": "Current drought conditions from the U.S. Drought Monitor",
-      "source": "maps/polygon-layers-map/drought-monitor.geojson",
-      "sourceType": "GeoJSON",
-      "featureType": "polygon"
     }
   ],
   "layerViewGroups": [
@@ -45,21 +45,55 @@
       "description": "Spatial polygon layers in the Cache la Poudre watershed",
       "layerViews": [
         {
+          "layerId": "drought",
+          "displayName": "Drought Tracker",
+          "symbol": {
+            "classification": "categorized",
+            "classificationField": "DM",
+            "color": "",
+            "colorRamp": "",
+            "colorRampMin": "",
+            "colorRampMax": "",
+            "colorTable": "{0}{#0d0887}{1}{#6900a8}{2}{#b42e8d}{3}{#e26660}{4}{#fca835}",
+            "fillOpacity": 0.2,
+            "fillPattern": "",
+            "lineCap": "square",
+            "lineJoin": "square",
+            "linePattern": "",
+            "lineWidth": "4",
+            "marker": "",
+            "opacity": 0.5,
+            "outlineColor": "",
+            "popupMouseover": "",
+            "popupSource": "",
+            "size": "",
+            "sizeUnits": "pixels"
+          }
+        },
+        {
           "layerId": "municipal_boundaries",
           "displayName": "Municipal Boundaries",
           "symbol": {
             "classification": "singleSymbol",
             "classificationField": "",
             "color": "red",
-            "outlineColor": "red",
-            "size": "",
-            "sizeUnits": "pixels",
-            "marker": "",
-            "opacity": 0.5,
-            "lineWidth": "",
-            "linePattern": "",
+            "colorRamp": "",
+            "colorRampMin": "",
+            "colorRampMax": "",
+            "colorTable": "",
+            "fillOpacity": 0.2,
             "fillPattern": "",
-            "fillOpacity": 0.2
+            "lineCap": "round",
+            "lineJoin": "round",
+            "linePattern": "20, 10",
+            "lineWidth": "3",
+            "marker": "",
+            "opacity": 0.2,
+            "outlineColor": "red",
+            "popupMouseover": "true",
+            "popupSource": "first_city",
+            "size": "",
+            "sizeUnits": "pixels"
           }
         },
         {
@@ -68,34 +102,24 @@
           "symbol": {
             "classification": "graduated",
             "classificationField": "ACREAGE",
-            "color": "blue",
-            "outlineColor": "blue",
-            "size": "",
-            "sizeUnits": "pixels",
-            "marker": "",
-            "opacity": 0.5,
-            "lineWidth": "",
-            "linePattern": "",
+            "color": "",
+            "colorRamp": "Greens",
+            "colorRampMin": "0",
+            "colorRampMax": "85631",
+            "colorTable": "",
+            "fillOpacity": 0.5,
             "fillPattern": "",
-            "fillOpacity": 0.2
-          }
-        },
-        {
-          "layerId": "drought",
-          "displayName": "Drought Tracker",
-          "symbol": {
-            "classification": "categorized",
-            "classificationField": "DM",
-            "color": "green",
+            "lineCap": "square",
+            "lineJoin": "square",
+            "linePattern": "",
+            "lineWidth": "2",
+            "marker": "",
+            "opacity": 0.8,
             "outlineColor": "green",
+            "popupMouseover": "false",
+            "popupSource": "DITCH_NAME",
             "size": "",
-            "sizeUnits": "pixels",
-            "marker": "",
-            "opacity": 0.5,
-            "lineWidth": "",
-            "linePattern": "",
-            "fillPattern": "",
-            "fillOpacity": 0.2
+            "sizeUnits": "pixels"
           }
         }
       ]
