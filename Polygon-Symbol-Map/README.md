@@ -1,6 +1,8 @@
 ## Polygon-Symbol-Map
 <a href="http://github.openwaterfoundation.org/owf-lib-viz-leaflet-js/Polygon-Symbol-Map/site/"><b>See a Live Demo of this Example</b></a>
 
+<a href="http://github.openwaterfoundation.org/owf-lib-viz-leaflet-js/Polygon-Symbol-Map/site/javascript/out"><b>See the JSdoc</b></a>
+
 ![](README-docs/Polygon-Symbol-Map.png)
 
 This map uses [polygon_layers_2019-05-15.json](http://github.openwaterfoundation.org/owf-lib-viz-leaflet-js/Polygon-Symbol-Map/site/maps/polygon_layers_2019-05-15.json) as a format file and [ditchserviceareas-district-3.geojson](http://github.openwaterfoundation.org/owf-lib-viz-leaflet-js/Polygon-Symbol-Map/site/maps/polygon-layers-map/ditchserviceareas-district03.geojson), [drought-monitor.geojson](http://github.openwaterfoundation.org/owf-lib-viz-leaflet-js/Polygon-Symbol-Map/site/maps/polygon-layers-map/drought-monitor.geojson), and [municipal-boundaries.geojson](http://github.openwaterfoundation.org/owf-lib-viz-leaflet-js/Polygon-Symbol-Map/site/maps/polygon-layers-map/municipal-boundaries.geojson) as data files to create polygon data on a map.

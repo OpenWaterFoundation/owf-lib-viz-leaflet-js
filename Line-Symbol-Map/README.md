@@ -1,6 +1,8 @@
 ## Line-Symbol-Map
 <a href="http://github.openwaterfoundation.org/owf-lib-viz-leaflet-js/Line-Symbol-Map/site/"><b>See a Live Demo of this Example</b></a>
 
+<a href="http://github.openwaterfoundation.org/owf-lib-viz-leaflet-js/Line-Symbol-Map/site/javascript/out"><b>See the JSdoc</b></a>
+
 ![](README-docs/Line-Symbol-Map.png)
 
 This map uses [line_layers_2019-05-15.json](http://github.openwaterfoundation.org/owf-lib-viz-leaflet-js/Line-Symbol-Map/site/maps/line_layers_2019-05-15.json) as a map configuration file to provide information about the map configuration and [swrf-district03.geojson](http://github.openwaterfoundation.org/owf-lib-viz-leaflet-js/Line-Symbol-Map/site/maps/line-layers-map/swrf-district03.geojson) point layer file to provide the data.
