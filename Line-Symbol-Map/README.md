@@ -27,7 +27,7 @@ In the [line_layers_2019-05-15.json](http://github.openwaterfoundation.org/owf-l
                 "layerId": "",
                 "displayName": "",
                 "symbol": {
-                     "classification": "singleSymbol",
+                    "classification": "singleSymbol",
                     "classificationField": "",
                     "color": "",
                     "colorRamp": "",
@@ -75,17 +75,17 @@ The table shows how the [line_layers_2019-05-15.json](http://github.openwaterfou
 | colorRamp | layer_colorRamp | For data classified as 'graduated'. Data will be shown in different shades depending on the value in the classificationField. Input colorRamp as a name ('Blues', 'Greens', 'Inferno'...). Any color ramps avaliable in QGIS are supported. Or input can be a list of colors {color1}{color2}{color3}... with a minimum of two colors. |
 | colorRampMax | layer_colorRampMax | For data classified as 'graduated'. Used as the maximum value in the colorRamp and represented by the last color in the colorRamp. Default is 0. |
 | colorRampMin | layer_colorRampMin | For data classified as 'graduated'. Used as the minimum value in the colorRamp and represented by the first color in the colorRamp. Default is 100. |
-| colorTable | layer_colorTable | For data classified as 'categorized'. Data is classified into groups based on the classificationField and each assigned to a different color. Input values and colors as {value1}{color1}{value2} |
+| colorTable | layer_colorTable | For data classified as 'categorized'. Data is classified into groups based on the classificationField and each assigned to a different color. Input values and colors as {value1}{color1}{value2}{color2}... |
 | fillOpacity | | The opacity of the inside of the shape. Not implemented for lines in leaflet. |
 | fillPattern | | Not implemented in for lines in leaflet. |
 | lineCap | Set lineCap in the style function for the desired layer | A string that defines the shape to be used at the end of the stroke. Default is 'round'. |
-| lineJoin | Set lineJoin in the style function for the desired layer | A string that defines the shape to be used at the end of the stroke. Default is 'round'. |
+| lineJoin | Set lineJoin in the style function for the desired layer | A string that defines the shape to be used at the corners of the stroke. Default is 'round'. |
 | linePattern | Set dashArray in the style function for the desired layer | A string that defines the dash pattern for the outline. Doesn't work on Canvas powered layers in some old browsers. Default is null. |
 | lineWidth | Set weight in the style function for the desired layer | The outline width in pixels. Default is 2. |
 | marker | | Not implemented for lines in leaflet. |
 | opacity | Set opacity in the style function for the desired layer | The opacity of the outline. The default is 1. |
 | outlineColor | Set color in the style function for the desired layer | The color of the outline. The default is blue. |
-| popupSource | bindPopup() | A string contatining that geoJSON property name that should be accessed and displayed in the popup. Default is empty string, "" |
 | popupMouseover | marker.on('mouseover', function(e){...} ) | Boolean value, if true popups will be triggered on mouseover. If false popups will be triggered on click. Default is false. |
+| popupSource | bindPopup() | A string contatining that geoJSON property name that should be accessed and displayed in the popup. Default is empty string, "" |
 | size | | Not implemented for lines in leaflet. |
 | sizeUnits | | The default is pixels. |
