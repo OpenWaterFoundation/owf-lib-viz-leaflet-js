@@ -1,4 +1,2 @@
-# ignore JSdovs
-Point-Symbol-Map/site/javascript/out/
-Line-Symbol-Map/site/javascript/out/
-Polygon-Symbol-Map/site/javascript/out/
+# ignore JSdocs
+out/
