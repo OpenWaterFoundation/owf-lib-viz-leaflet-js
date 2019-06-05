@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/leaflet.zoomhome.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/L.Control.MousePosition.css"/>
+    <link rel="shortcut icon" type="image/png" href="images/OWF-Logo-Favicon-32x32.png"/>
     
     <!-- Include javascript files -->
     <script src="javascript/leaflet.js"></script>
@@ -397,6 +398,7 @@
                                 These are used for the map key */
                                 if(graduatedKeyColors[graduatedKeyNames.length * 2] == null){
                                     graduatedKeyColors.push(colors.colorAt(layer_colorRampMin));
+                                    graduatedKeyColors.push(colors.colorAt(((layer_colorRampMax-layer_colorRampMin)/2) + layer_colorRampMin));
                                     graduatedKeyColors.push(colors.colorAt(layer_colorRampMax));
                                 }
                                 return '#' + colors.colorAt(strValue);
@@ -479,10 +481,11 @@
                 if(graduatedKeyNames.length > 0){
                     div.innerHTML += '<h3>Graduated Data:</h3>';
                     for(let j = 0; j < graduatedKeyNames.length; j++){
-                        let k = (j*2);
+                        let k = (j*3);
                         graduatedKeyColors[k] = '#' + graduatedKeyColors[k];
                         graduatedKeyColors[k + 1] = '#' + graduatedKeyColors[k + 1];
-                        div.innerHTML += '<i style="background:' + graduatedKeyColors[k] + '"></i> ' + '<i style="background:' + graduatedKeyColors[k + 1] + '"></i> ' + graduatedKeyNames[j] + "<br><br>";
+                        graduatedKeyColors[k + 2] = '#' + graduatedKeyColors[k + 2];
+                        div.innerHTML += '<i style="background:' + graduatedKeyColors[k] + '"></i> ' + '<i style="background:' + graduatedKeyColors[k + 1] + '"></i> ' + '<i style="background:' + graduatedKeyColors[k + 2] + '"></i> ' + graduatedKeyNames[j] + "<br><br>";
                     }
                 }
                 return div;
