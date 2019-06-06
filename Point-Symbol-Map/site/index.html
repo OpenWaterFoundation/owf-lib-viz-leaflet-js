@@ -176,6 +176,7 @@
             * @type {string[]}
             */
             var categorizedKeyColors = [];
+            var categorizedClassificationField = [];
             /**
             * Used to hold the name of the data classified as 'graduated'. Will be used for the map legend/key.
             * @type {string[]}
@@ -186,6 +187,8 @@
             * @type {string[]}
             */
             var graduatedKeyColors = [];
+
+            var graduatedClassificationField = [];
 
             /* Reads in .json file which describes the format of the map */
             $.ajax({
@@ -284,9 +287,11 @@
                         else if(layer_classification == 'categorized'){
                             categorizedKeyNames.push(json.layerViewGroups[0].layerViews[i].layerId);
                             categorizedKeyColors.push(layer_colorTable);
+                            categorizedClassificationField.push(layer_classificationField.toLowerCase());
                         }
                         else if(layer_classification == 'graduated'){
                             graduatedKeyNames.push(json.layerViewGroups[0].layerViews[i].layerId);
+                            graduatedClassificationField.push(layer_classificationField.toLowerCase());
                         }
 
                         /**
@@ -502,7 +507,8 @@
                     div.innerHTML += '<h4>Categorized Data:</h4>';
                     for(let j = 0; j < categorizedKeyNames.length; j++){
                         if(typeof categorizedKeyColors[j] === 'object'){
-                            div.innerHTML += '<h4>' + categorizedKeyNames[j] + '</h4>';
+                            div.innerHTML += categorizedKeyNames[j] + "<br><br>";
+                            div.innerHTML += 'Categorized by: ' + categorizedClassificationField[j] + "<br><br>";
                             for(let k = 0; k < categorizedKeyColors[j].length; k++){
                                 if((k%2) == 0)
                                     div.innerHTML += '<i style="background:' + categorizedKeyColors[j][k+1] + '"></i> ' + categorizedKeyColors[j][k] + "<br><br>";
@@ -513,6 +519,7 @@
                 if(graduatedKeyNames.length > 0){
                     div.innerHTML += '<h4>Graduated Data:</h4>';
                     for(let j = 0; j < graduatedKeyNames.length; j++){
+                        div.innerHTML += 'Ordered by: ' + graduatedClassificationField[j] + "<br><br>";
                         let k = (j*3);
                         graduatedKeyColors[k] = '#' + graduatedKeyColors[k];
                         graduatedKeyColors[k + 1] = '#' + graduatedKeyColors[k + 1];
