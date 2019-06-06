@@ -1,0 +1,128 @@
+{
+  "properties": {
+    "name": "Poudre Information Portal",
+    "description": "Map that focuses on point layers and options for symbology",
+    "crs": "need to define CRS format",
+    "version": "some version for this JSON format",
+    "saveDateTime": "2019-05-15T14:45:36.494467",
+    "fileFormatVersion": "some specification version",
+    "initialExtent": "Need to define extent",
+    "minimumExtent": "Need to define extent",
+    "maximumExtent": "Need to define extent"
+  },
+  "layers": [
+    {
+      "geolayerId": "streamgages",
+      "name": "active-streamgages",
+      "displayName": "Active Streamgages",
+      "description": "Streamgages that are actively measuring discharge in streams in the Cache la Poudre watershed",
+      "source": "data/point-layers-map/active-streamgages.geojson",
+      "sourceType": "GeoJSON",
+      "featureType": "point"
+    },
+    {
+      "geolayerId": "reservoirs",
+      "name": "reservoirs",
+      "displayName": "Reservoirs",
+      "description": "Reservoirs and reservoir storage levels in the Cache la Poudre watershed",
+      "source": "data/point-layers-map/reservoir-levels.geojson",
+      "sourceType": "GeoJSON",
+      "featureType": "point"
+    },
+    {
+      "geolayerId": "ditches",
+      "name": "active-ditches",
+      "displayName": "Active Ditches",
+      "description": "Ditches that are actively diverting water from streams in the Cache la Poudre watershed",
+      "source": "data/point-layers-map/active-ditches.geojson",
+      "sourceType": "GeoJSON",
+      "featureType": "point"
+    }
+  ],
+  "layerViewGroups": [
+    {
+      "name": "Poudre Point Layers",
+      "description": "Spatial point layers in the Cache la Poudre watershed",
+      "layerViews": [
+        {
+          "layerId": "streamgages",
+          "displayName": "",
+          "symbol": {
+            "classification": "categorized",
+            "classificationField": "Data_Source",
+            "color": "",
+            "colorRamp": "",
+            "colorRampMin": "",
+            "colorRampMax": "",
+            "colorTable": "{Northern Colorado Water Conservancy District}{#b30000}{U.S. Geological Survey}{#ff6600}{City of Aurora  (Station cooperator)}{#ffb366}{NCWCD/Bureau of Reclamation (Station Cooperators)}{#ffff00}{City of Colorado Springs  (Station cooperator)}{#59b300}{Bureau of Reclamation (Station Cooperators)}{#33cc33}{Cooperative Program of CDWR, NCWCD \u0026 LSPWCD}{#b3ff66}{Cooperative SDR Program of CDWR \u0026 NCWCD}{#00ffff}{Bureau of Reclamation  (Station cooperator)}{#66a3ff}{Co. Division of Water Resources}{#003cb3}",
+            "fillOpacity": 1.0,
+            "fillPattern": "",
+            "lineCap": "square",
+            "lineJoin": "square",
+            "linePattern": "",
+            "lineWidth": "",
+            "marker": "circle",
+            "opacity": 0.1,
+            "outlineColor": "black",
+            "popupMouseover": "false",
+            "popupSource": "Station_Name",
+            "size": 7,
+            "sizeUnits": "pixels"
+          }
+        },
+        {
+          "layerId": "reservoirs",
+          "displayName": "",
+          "symbol": {
+            "classification": "graduated",
+            "classificationField": "Percent_NRCS_1981_2010_Average",
+            "color": "",
+            "colorRamp": "RdYlGn",
+            "colorRampMax": 143,
+            "colorRampMin": 89,
+            "colorTable": "",
+            "fillOpacity": 1.0,
+            "fillPattern": "",
+            "lineCap": "round",
+            "lineJoin": "round",
+            "linePattern": "",
+            "lineWidth": "",
+            "marker": "triangle",
+            "opacity": 1.0,
+            "outlineColor": "black",
+            "popupMouseover": "false",
+            "popupSource": "Name",
+            "size": 7,
+            "sizeUnits": "pixels"
+          }
+        },
+        {
+          "layerId": "ditches",
+          "displayName": "",
+          "symbol": {
+            "classification": "singleSymbol",
+            "classificationField": "",
+            "color": "#800080",
+            "colorRamp": "",
+            "colorRampMax": "",
+            "colorRampMin": "",
+            "colorTable": "",
+            "fillOpacity": 0.5,
+            "fillPattern": "",
+            "lineCap": "square",
+            "lineJoin": "square",
+            "linePattern": "",
+            "lineWidth": "",
+            "marker": "square",
+            "opacity": 0.5,
+            "outlineColor": "black",
+            "popupMouseover": "true",
+            "popupSource": "structureName",
+            "size": 7,
+            "sizeUnits": "pixels"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+.clusterize .scroll-area{
+	height: 95%;
+    height: -webkit-calc(100% - 36px);
+    height: : -moz-calc(100% - 36px);
+	height: calc(100% - 36px);
+}
+
+.clusterize td {
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.clusterize td {
+	white-space: nowrap;
+}
+
+.clusterize .clusterize-headers {
+	overflow: hidden;
+}
+
+.clusterize table {
+	margin-bottom: 0;
+	border-collapse: collapse;
+}
+
+.clusterize .scroll-area table {
+	table-layout: fixed;
+}
+
+.clusterize td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+.clusterize tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+.clusterize {
+	overflow: hidden;
+}

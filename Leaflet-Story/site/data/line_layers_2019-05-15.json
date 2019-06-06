@@ -1,0 +1,93 @@
+{
+  "properties": {
+    "name": "Poudre Information Portal",
+    "description": "Map that focuses on line layers and options for symbology",
+    "crs": "need to define CRS format",
+    "version": "some version for this JSON format",
+    "saveDateTime": "2019-05-15T15:28:05.135703",
+    "fileFormatVersion": "some specification version",
+    "initialExtent": "Need to define extent",
+    "minimumExtent": "Need to define extent",
+    "maximumExtent": "Need to define extent"
+  },
+  "layers": [
+    {
+      "geolayerId": "swrf",
+      "name": "swrf",
+      "displayName": "Source Water Route Framework",
+      "description": "The Source Water Route Framework was developed by the Colorado Division of Water Resources and derived from the National Hydrography Dataset (NHD). The SWRF represents most streams in Colorado, in particular those with water rights or other important features.",
+      "source": "data/line-layers-map/swrf-district03.geojson",
+      "sourceType": "GeoJSON",
+      "featureType": "line"
+    },
+    {
+      "geolayerId": "ifrd",
+      "name": "ifrd",
+      "displayName": "Instream Flow Reaches",
+      "description": "",
+      "source": "data/line-layers-map/ifrd-district06.geojson",
+      "sourceType": "GeoJSON",
+      "featureType": "line"
+    }
+  ],
+  "layerViewGroups": [
+    {
+      "name": "Poudre Line Layers",
+      "description": "Spatial line layers in the Cache la Poudre watershed",
+      "layerViews": [
+        {
+          "layerId": "swrf",
+          "displayName": "",
+          "symbol": {
+            "classification": "singleSymbol",
+            "classificationField": "",
+            "color": "",
+            "colorRamp": "",
+            "colorRampMin": "",
+            "colorRampMax": "",
+            "colorTable": "",
+            "fillOpacity": 1.0,
+            "fillPattern": "",
+            "lineCap": "round",
+            "lineJoin": "round",
+            "linePattern": "",
+            "lineWidth": "",
+            "marker": "",
+            "opacity": 0.5,
+            "outlineColor": "blue",
+            "popupMouseover": "true",
+            "popupSource": "GNIS_Name",
+            "size": "",
+            "sizeUnits": "pixels"
+          }
+        },
+        {
+          "layerId": "ifrd",
+          "displayName": "",
+          "symbol": {
+            "classification": "graduated",
+            "classificationField": "MILES",
+            "color": "",
+            "colorRamp": "Blues",
+            "colorRampMin": 0,
+            "colorRampMax": 18,
+            "colorTable": "",
+            "fillOpacity": 1.0,
+            "fillPattern": "",
+            "lineCap": "square",
+            "lineJoin": "square",
+            "linePattern": "20, 10",
+            "lineWidth": 4,
+            "marker": "",
+            "opacity": 1.0,
+            "outlineColor": "green",
+            "popupMouseover": "false",
+            "popupSource": "Name",
+            "size": "",
+            "sizeUnits": "pixels"
+          }
+        }
+      ]
+    }
+  ]
+}

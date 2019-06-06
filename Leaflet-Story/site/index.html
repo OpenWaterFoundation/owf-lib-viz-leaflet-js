@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>South Platte and Metro Basin Hydrology </title>
+    <!-- Colorado triangle favicon -->
+    <link id="czr-favicon" rel="icon" href="images/co-triangle-favicon.ico">
+
+    <link href="css/map.css" rel="stylesheet">
+    <!-- Custom style -->
+    <link href="css/owf-style.css" rel="stylesheet">
+    <!-- Custom leaflet style added -->
+    <link href="css/custom-leaflet-style.css" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap-4.0.0.css" rel="stylesheet">
+    <!-- Font Awesome Used in newest version of bootstrap for icons -->
+    <link href="css/fontawesome-all-5.1.1.min.css" rel="stylesheet"/> 
+    <!-- Stylesheet for fullpage version 3.0.0 -->
+    <link href="css/jquery.fullpage-3.0.0.min.css" rel="stylesheet">
+    <!-- Stylesheet for mapbox -->
+    <!--<link href='css/mapbox-gl-0.47.0.css' rel='stylesheet' />-->
+    <!-- Stylesheet for leaflet -->
+    <link href="css/leaflet-1.3.3.css" rel="stylesheet" />
+	  <!-- Taken from owf-webapp-spatial-datasets-js repo. Required to display latitude and longitude. -->
+    <link href="css/L.Control.MousePosition.1.css" rel="stylesheet" />
+    <!-- Style for jBox library -->
+    <link href="css/jBox-0.4.9.css" rel="stylesheet">
+	  <!-- Style for Clusterize.js -->
+    <link href="css/clusterize-0.18.0.css" rel="stylesheet">
+    <!-- Style for CsvToTable.js -->
+    <link href="css/CsvToTable-0.2.3.css" rel="stylesheet">	
+    <!-- Style for TimelineJS -->
+    <link href="css/Timelinejs-3.6.0-min.css" rel="stylesheet">		
+
+    <!-- JavaScript Files -->
+    <!-- Include d3 to make a simple scale for slider -->
+    <!-- Because this requires so many files for a small amount of code used in
+      two of the map files. Using the cdns instead of tracking down all the
+      individual files -->
+    <script src="https://d3js.org/d3-array.v1.min.js"></script>
+    <script src="https://d3js.org/d3-collection.v1.min.js"></script>
+    <script src="https://d3js.org/d3-color.v1.min.js"></script>
+    <script src="https://d3js.org/d3-format.v1.min.js"></script>
+    <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+    <script src="https://d3js.org/d3-time.v1.min.js"></script>
+    <script src="https://d3js.org/d3-time-format.v2.min.js"></script>
+    <script src="https://d3js.org/d3-scale.v2.min.js"></script>
+    <!-- Include custom class fileparser -->
+    <script src="js/fileparser.js"></script>
+    <!-- TimelineJS Javascript File -->		
+	  <script type="text/javascript" src="js/Timelinejs-3.6.0-min.js"></script>		
+    <!-- MapBox Leaflet -->
+    <!--<script src='https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.js'></script>-->
+    <script src="js/leaflet-1.3.3.js"></script>
+    <!-- JQuery JavaScript -->
+    <script src="js/jquery-3.3.1.js"></script>
+    <!-- Fullpage minified Javscript file -->
+    <script src="js/jquery.fullpage-3.0.0.js"></script>
+    <!-- Fullpage minified Javscript file -->
+    <script src="js/scrolloverflow-0.0.8.min.js"></script>
+    <!-- Bootstrap Javascript File -->
+    <script src="js/bootstrap-4.0.0.js"></script>
+    <!-- Papaparse Javascript File -->
+    <script src="js/papaparse.min-4.4.0.js"></script>
+    <!-- jBox for tooltips -->
+    <script src="js/jBox-0.4.9.min.js"></script>
+	<!-- Clusterize.js Javascript file -->
+    <script src="js/clusterize-0.18.0.min.js"></script>
+    <!-- CsvToTable Javascript file -->
+    <script src="js/CsvToTable-0.2.3.min.js"></script>
+    <!-- Plotly Javascript File	 -->
+	<script src="js/plotly-1.39.4.min.js"></script>
+
+	<!-- javascript for leaflet maps -->
+	<script src="js/leaflet.js"></script>
+	<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
+	<!-- <script src="js/leaflet.zoomhome.min.js"></script> -->
+	<script src="js/L.Control.MousePosition.js"></script>
+	<script src="js/rainbowvis.js"></script>
+	<script src="js/leaflet-color-markers.js"></script>
+  <script src="js/leaflet-svg-shape-markers.min.js"></script>
+  <script src="js/map-files/get-json-file.js"></script>
+
+	<!-- data for leaflet maps -->
+	<script src="data/line_layers_2019-05-15.json"></script>
+	<script src="data/line-layers-map/ifrd-district06.geojson"></script>
+	<script src="data/line-layers-map/swrf-district03.geojson"></script>
+
+	<script src="data/point_layers_2019-05-15.json"></script>
+	<script src="data/point-layers-map/active-ditches.geojson"></script>
+	<script src="data/point-layers-map/active-streamgages.geojson"></script>
+	<script src="data/point-layers-map/reservoir-levels.geojson"></script>
+
+	<script src="data/polygon_layers_2019-05-15.json"></script>
+	<script src="data/point-layers-map/ditchserviceareas-district03.geojson"></script>
+	<script src="data/point-layers-map/drought-monitor.geojson"></script>
+  <script src="data/point-layers-map/municipal-boundaries.geojson"></script>
+	
+  </head>
+
+<script>
+    /* Use jBox for popups on maps */
+    /* This jBox popup is used in mapfiles */
+    var mousetooltip;
+    $(window).bind("load", function(){
+      mousetooltip = new jBox('Tooltip', {
+        attach: '.scrollbutton-tooltip',
+        position: {
+          y:'bottom'
+        },
+        content: "Click to toggle mouse scroll wheel behavior.<br> [ x ] Mouse scroll pages forward/back. <br> [ &nbsp; ] Mouse scroll zooms map."
+     });
+    })
+
+    var tooltip;
+    $(window).bind("load", function(){
+      tooltip = new jBox('Tooltip', {
+        closeOnMouseleave: true,
+        attach: '.jbox-tooltip'
+      })
+    })
+  </script>
+
+
+<body>
+
+    <div class="loader"></div>
+
+    <div id="allContent" style="opacity:0;">
+    <!--Navigation-->
+    <nav class="navbar navbar-expand-xl navbar-dark bg-dark fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#top">South Platte and Metro Basin Hydrology</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#watersheds">Concepts</a>
+            </li>		  
+            <li class="nav-item">
+              <a class="nav-link" href="#pointflowmodels">Modeling</a>
+            </li>			
+           <li class="nav-item">
+              <a class="nav-link" href="#demandag1">Demand</a>
+            </li>
+           <li class="nav-item">
+              <a class="nav-link" href="#storagesnowpack">Storage</a>
+            </li>
+          <li class="nav-item">
+              <a class="nav-link" href="#swrf">Tools</a>
+            </li>			
+            <li class="nav-item">
+              <a class="nav-link" href="#resources">Resources</a>
+            </li>			
+          </ul>
+        </div>
+      </div>
+    </nav>
+	
+<div id="fullpage">
+<!-- Title Page -->  
+    <div class="section" style="background-image:url('images/title-page.png'); height:100vh!important;">>
+	  <div class="row">
+          <div class="col-lg-12">
+		    <div class="container text-center text-image-overlay" style="margin-top:5vh; background-color:rgba(70,70,70,0.7);">
+            <h1 style="margin-top:5vh; float:top;">South Platte and Metro Basin Hydrology</h1>
+              <p style="font-size:22px;">This story provides a summary of South Platte and Metro Basin hydrology in order to provide background for 
+			  understanding water resources issues in the basin.</p>
+			  <p style="font-size:18px;"><i>See the <a href="#instructions">Instructions</a> page for how to view this story.</i>
+			  Created by the <a href="http://openwaterfoundation.org/"
+			  target="_blank">Open Water Foundation<img src="images/baseline_launch_white_18dp.png" width="12px"/></a>.</p>
+		  </div>
+		</div>
+	  </div>
+	 </div> 
+<!-- Hydrology Concepts Section -->
+  
+  <!--  Watersheds Page -->
+      <div class="section">
+	   <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-4 text-left-custom custom-scroll">
+              <h2>Hydrology Concepts - Watersheds</h2>
+			  <p>A watershed is an area of land that drains all the streams and rainfall to a common outlet, such as the outflow of a reservoir or any point 
+			  along a stream channel. A watershed can also be referred to as a drainage basin or catchment; it is also possible to think of a watershed as a 
+			  precipitation collector.  Ridges and hills that separate two watersheds are called the drainage divide.  In Colorado, the Continental Divide is 
+			  an example of a drainage divide at the largest scale.  Water that falls west of the Divide will eventually make its way to the Pacific Ocean 
+			  via rivers like the Colorado River.  Water that falls east of the Divide will eventually make its way to the Atlantic Ocean via rivers like the 
+			  South Platte and Arkansas.  Natural drainage features may be modified by human impacts such as dams, tunnels, pumping, canals and other 
+			  infrastructure.</p>
+			  <p>A watershed consists of surface water--lakes, streams, reservoirs and wetlands--and all the underlying groundwater. Larger watersheds consist of 
+			  many smaller watersheds. The size of the watershed depends on the outflow point:  all of the land that drains water to the outflow point is the watershed for 
+			  that outflow point (<a href="https://water.usgs.gov/edu/watershed.html" target="_blank">USGS Water Science School<img src="images/baseline_launch_black_18dp.png" 
+			  width="12px"/></a>).  It is helpful to locate streamgages at the outflow point of important water supply watersheds or stream confluences.</p>
+			  <p>There are a number of watershed datasets.  A common one is the 
+			  <a href="https://www.usgs.gov/core-science-systems/ngp/national-hydrography/watershed-boundary-dataset?qt-science_support_page_related_con=4#qt-science_support_page_related_con" 
+			  target="_blank">Watershed Boundary Dataset (WBD)<img src="images/baseline_launch_black_18dp.png" width="12px"/></a> from the U.S. Geological Survey, 
+			  which is a nationwide dataset.  Here, watersheds are called hydrologic units and form a standardized system for organizing, collecting, managing 
+			  and reporting hydrologic information. Hydrologic units are arranged in a nested, hierarchical system with each unit in the system identified using 
+			  a unique code.  Hydrologic unit codes (HUC) are developed using a progressive two-digit system where each successively smaller areal unit is 
+			  identified by adding two digits to the identifying code of the parent basin.  An example of this hierarchy is shown below.</p>
+			  <p><img class="image-centered" src="images/huc-hierarchy.png" frameborder="0"></img></p>
+			  <p>Source: <a href="https://www.usgs.gov/core-science-systems/ngp/national-hydrography/watershed-boundary-dataset?qt-science_support_page_related_con=4#qt-science_support_page_related_con" 
+			  target="_blank">Watershed Boundary Dataset<img src="images/baseline_launch_black_18dp.png" width="12px"/></a></p> 
+			  <p>The WBD contains eight levels of progressive hydrologic units identified by unique 2- to 16-digit codes. The dataset is complete for the United 
+			  States to the 12-digit hydrologic unit.  The map at right shows HUC10 watersheds in the South Platte Basin.</p>
+			  <p>The State of Colorado classifies watersheds into divisions (the South Platte Basin is Division 01) and districts, which correspond to 
+			  basins associated with water administration.  Water-related data in the State's HydroBase database, such as diversion records and water rights, are 
+			  assigned a "Water District Identifier" or WDID; the first two digits of the WDID are the water district number and the remaining digits indicate a 
+			  structure such as a diversion headgate or reservoir.  On the map at right, click on the second Layers icon in the upper left 
+			  corner to toggle to a map of the water districts in the Basin.  Note that the Republican River and Laramie River basins are sometimes considered 
+			  with the South Platte Basin but that each has unique water resources issues.</p>
+          </div>			
+		  <div class="col-lg-8">
+            <div id="mapbox6" class="map-right"></div>
+            <script>
+              setJsonFile("data/point_layers_2019-05-15.json");
+              setId("mapbox6");
+            </script>
+			  <script src="js/map-files/leaflet-symbol.js"></script>
+          </div>
+        </div>
+      </div>
+	 </div>
+  <!--  Streams Page -->
+      <div class="section">
+	   <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-4 text-left-custom custom-scroll">
+              <h2>Hydrology Concepts - Streams</h2>	
+			  <p>Streams are the surface water conveyance features within a watershed.  There are a number of stream datasets, including:</p>
+			  <ul>
+			    <li><a href="https://nhd.usgs.gov/NHD_High_Resolution.html" target="_blank">National Hydrography Dataset (NHD)<img src="images/baseline_launch_black_18dp.png" 
+			  width="12px"/></a> - from the U.S. Geological Survey.</li>
+			    <li>Source Water Route Framework (SWRF) - developed by the Division of Water Resources and derived from the NHD.  The SWRF represents 
+				most streams in Colorado, in particular those with water rights or other important features.  However, SWRF may not include minor streams 
+				or features that do not have a nexus with water administration.</li>
+				<li><a href="https://www.colorado.gov/pacific/cdphe/clean-water-gis-maps" target="_blank">Colorado Department of Public Health and Environment's 
+				water quality stream segmentation<img src="images/baseline_launch_black_18dp.png" width="12px"/></a> dataset - classifies stream segments based 
+			    on level of impairment and the reasons for impairment (E. coli, sediment, temperature, etc.).</li>
+			  </ul>
+			  <p>Similar to NHD, the SWRF uses a Geographic Names Information System (GNIS) ID, an 8-digit identifier used to uniquely identify most streams in the 
+			  state, rather than using the stream's common name (there are 13 streams named Dry Creek in the South Platte basin alone).  SWRF provides 
+			  a more simple dataset than NHD: in the SWRF each line represents a stream or river, whereas NHD provides many individual line segments for each 
+			  stream or river.  It is important when using these datasets to indicate the version because government agencies do periodically adjust the data.</p>
+			  <p>By using the NHD linked to the SWRF, it is possible to link federal and State datasets.  Datasets such as 
+			  stream gages, diversion structures and instream flow rights (discussed in subsequent pages in this story) can be "referenced" to the SWRF to 
+			  provide a common framework for analysis; such data work is ongoing in order to leverage the SWRF dataset.</p>
+			  <p>This map shows a small section of the SWRF, representing the southwest portion of the Basin.  The SWRF layer shown here is cropped because showing the full 
+			  basin would result in a slower visualization.  The full SWRF can be downloaded <a href="http://cdss.state.co.us/GIS/Pages/AllGISData.aspx" target="_blank">here</a>.</p>
+          </div>			
+		  <div class="col-lg-8">
+            <div id="mapbox3" class="map-right"></div>
+            <script>
+                setJsonFile("data/line_layers_2019-05-15.json");
+                setId("mapbox3");
+              </script>
+			  <script src="js/map-files/leaflet-symbol.js"></script>
+          </div>
+        </div>
+      </div>
+	 </div>	  
+  <!-- Stream Gages and Measuring Flows Page -->
+     <div class="section">
+         <div class="row">
+            <div class="col-lg-4 text-left-custom custom-scroll">  
+              <h2>Hydrology Concepts - Streamgages and Measuring Flows</h2>			  
+			  <p>In order to manage the water resources of Colorado it is necessary to measure the surface water flow in natural streams and water distribution 
+			  infrastructure.  Streamflow, also called discharge, in Colorado is measured by the <a href="https://waterdata.usgs.gov/nwis/sw" 
+			  target="_blank">U.S. Geological Survey (USGS)<img src="images/baseline_launch_black_18dp.png" width="12px"/></a>, 
+			  <a href="http://www.dwr.state.co.us/Surfacewater/default.aspx" target="_blank">Colorado Division of 
+			  Water Resources (DWR)<img src="images/baseline_launch_black_18dp.png" width="12px"/></a>, local water utilities and other entities that need to know flow amounts for reporting and operations.  Sensors and 
+			  data loggers (also called data collection units (DCUs) or stage discharge recorders (SDRs)) may record measurements at regular intervals and can be 
+			  triggered by changing values such as a rain event.  These measurements, often referred to as real-time or instantaneous, may or may not be publicly 
+			  available.  Real-time data are often publicly reported at 15-minute intervals, representing average conditions over that time.  These values are then aggregated to 
+			  longer intervals including hour and day.  Average values are often suitable for water supply management operations, whereas instantaneous values 
+			  may be used to monitor peak flows, environmental flows or other critical conditions.</p>  
+			  <p>It is important to recognize that a daily average flow, such as reported by USGS or DWR, does not mean that the flow was the same from midnight 
+			  to midnight; in actuality, the flow could have varied significantly during the day and using shorter-interval data is necessary to understand the 
+			  variation.</p>  
+			  <p>Each organization that collects data assigns a station identifier and name to the station.  Multiple data sources, identifier conventions and 
+			  data formats can present challenges to finding and using data.</p>
+			  <p>This map shows active streamgages operated by DWR, USGS or other entities such as a municipal utility.  Click on a circle for more information, 
+			  including links to the website for each gage, which shows current flow conditions measured by the gage.  (Source:  
+			  <a href="https://gis.colorado.gov/dnrviewer/Index.html?viewer=mapviewer" target="_blank">CDSS Map Viewer<img src="images/baseline_launch_black_18dp.png" 
+			  width="12px"/></a>, Surface Water Current Conditions layer, "Active Gage - Stream" option.)</p>
+			  <p>Measuring streamflow in natural channels to a reasonable level of accuracy can be challenging.  See the <a href="https://water.usgs.gov/edu/measureflow.html" 
+			  target="_blank">USGS information<img src="images/baseline_launch_black_18dp.png" width="12px"/></a> about how streamflow is measured.  It is 
+			  particularly challenging to measure flow in channels that change over time, such as the South Platte River in wide, sandy locations.</p>
+              </div>			
+		    <div class="col-lg-8">
+              <div id="mapbox1" class="map-right"></div>
+              <script>
+                  setJsonFile("data/polygon_layers_2019-05-15.json");
+                  setId("mapbox1");
+                </script>
+				<script src="js/map-files/leaflet-symbol.js"></script>
+            </div>	
+        </div> 
+      </div>  
+<!-- Hydrologic Tools Section -->	   
+
+  </body>
+
+
+    <script>
+
+      document.onreadystatechange = function(e)
+      {
+          if (document.readyState === 'complete')
+          {
+            $("#allContent").css("opacity", 1)
+            $(".loader").css("display", "none")
+          }
+      };
+
+      $(document).ready(function() {
+        $('#fullpage').fullpage({
+          licenseKey: "OPEN-SOURCE-GPLV3-LICENSE",
+          anchors:['top', 'watersheds', 'streams', 'streamgages'],
+          sectionsColor:['#386981','#c3c5bf','#c3c5bf','#c3c5bf'],
+          navigation:true,
+          navigationPosition:'right',
+          navigationTooltips:['South Platte and Metro Basin Hydrology', 'Watersheds', 'Streams', 
+		  'Measuring Flows'],
+          recordHistory:false,
+          menu:"#navbarResponsive",
+          paddingTop:'25px'
+        });
+      });
+
+ 
+    </script>
+
+</html>
+
