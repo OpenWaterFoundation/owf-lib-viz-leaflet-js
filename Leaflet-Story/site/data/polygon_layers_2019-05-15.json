@@ -1,0 +1,128 @@
+{
+  "properties": {
+    "name": "Poudre Information Portal",
+    "description": "Map that focuses on polygon layers and options for symbology",
+    "crs": "need to define CRS format",
+    "version": "some version for this JSON format",
+    "saveDateTime": "2019-05-16T09:33:49.749140",
+    "fileFormatVersion": "some specification version",
+    "initialExtent": "Need to define extent",
+    "minimumExtent": "Need to define extent",
+    "maximumExtent": "Need to define extent"
+  },
+  "layers": [
+    {
+      "geolayerId": "drought",
+      "name": "drought-monitor",
+      "displayName": "Drought Monitor",
+      "description": "Current drought conditions from the U.S. Drought Monitor",
+      "source": "data/polygon-layers-map/drought-monitor.geojson",
+      "sourceType": "GeoJSON",
+      "featureType": "polygon"
+    },
+    {
+      "geolayerId": "municipal_boundaries",
+      "name": "municipal-boundaries",
+      "displayName": "Municipal Boundaries",
+      "description": "Boundaries of municipalities in Colorado",
+      "source": "data/polygon-layers-map/municipal-boundaries.geojson",
+      "sourceType": "GeoJSON",
+      "featureType": "polygon"
+    },
+    {
+      "geolayerId": "ditch_serviceareas",
+      "name": "ditch-serviceareas",
+      "displayName": "Ditch Service Areas",
+      "description": "Service areas of ditches in the Cache la Poudre watershed",
+      "source": "data/polygon-layers-map/ditchserviceareas-district03.geojson",
+      "sourceType": "GeoJSON",
+      "featureType": "polygon"
+    }
+  ],
+  "layerViewGroups": [
+    {
+      "name": "Poudre Polygon Layers",
+      "description": "Spatial polygon layers in the Cache la Poudre watershed",
+      "layerViews": [
+        {
+          "layerId": "drought",
+          "displayName": "Drought Tracker",
+          "symbol": {
+            "classification": "categorized",
+            "classificationField": "DM",
+            "color": "",
+            "colorRamp": "",
+            "colorRampMin": "",
+            "colorRampMax": "",
+            "colorTable": "{0}{#ffffb2}{1}{#fecc5c}{2}{#fd8d3c}{3}{#f03b20}{4}{#bd0026}",
+            "fillOpacity": 0.5,
+            "fillPattern": "",
+            "lineCap": "square",
+            "lineJoin": "square",
+            "linePattern": "",
+            "lineWidth": "2",
+            "marker": "",
+            "opacity": 0.3,
+            "outlineColor": "black",
+            "popupMouseover": "",
+            "popupSource": "",
+            "size": "",
+            "sizeUnits": "pixels"
+          }
+        },
+        {
+          "layerId": "municipal_boundaries",
+          "displayName": "Municipal Boundaries",
+          "symbol": {
+            "classification": "singleSymbol",
+            "classificationField": "",
+            "color": "black",
+            "colorRamp": "",
+            "colorRampMin": "",
+            "colorRampMax": "",
+            "colorTable": "",
+            "fillOpacity": 0.2,
+            "fillPattern": "",
+            "lineCap": "round",
+            "lineJoin": "round",
+            "linePattern": "20, 10",
+            "lineWidth": "3",
+            "marker": "",
+            "opacity": 0.4,
+            "outlineColor": "black",
+            "popupMouseover": "true",
+            "popupSource": "first_city",
+            "size": "",
+            "sizeUnits": "pixels"
+          }
+        },
+        {
+          "layerId": "ditch_serviceareas",
+          "displayName": "Ditch Service Areas",
+          "symbol": {
+            "classification": "graduated",
+            "classificationField": "ACREAGE",
+            "color": "",
+            "colorRamp": "Purples",
+            "colorRampMin": "0",
+            "colorRampMax": "85631",
+            "colorTable": "",
+            "fillOpacity": 0.5,
+            "fillPattern": "",
+            "lineCap": "square",
+            "lineJoin": "square",
+            "linePattern": "",
+            "lineWidth": "2",
+            "marker": "",
+            "opacity": 0.8,
+            "outlineColor": "purple",
+            "popupMouseover": "false",
+            "popupSource": "DITCH_NAME",
+            "size": "",
+            "sizeUnits": "pixels"
+          }
+        }
+      ]
+    }
+  ]
+}

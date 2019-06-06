@@ -14,7 +14,7 @@ The repository contains multiple folders that contain examples of each type of v
 |<center>**[Point-Symbol-Map](Point-Symbol-Map)**<center><br>[![button](README-docs/Point-Symbol-Map.png)](Point-Symbol-Map)| This map illustrates how to configure symbol properties for point layers, using a JSON map configuration file.     |
 |<center>**[Line-Symbol-Map](Line-Map)**<center><br>[![button](README-docs/Line-Symbol-Map.png)](Line-Symbol-Map)| This map illustrates how to configure symbol properties for line layers, using a JSON map configuration file.     |
 |<center>**[Polygon-Symbol-Map](Polygon-Symbol-Map)**<center><br>[![button](README-docs/Polygon-Symbol-Map.png)](Polygon-Symbol-Map)| This map illustrates how to configure symbol properties for polygon layers, using a JSON map configuration file.  |
-
+|<center>**[Leaflet-Story](Leaflet-Story)**<center><br>[![button](README-docs/leaflet-story.png)](Leaflet-Story)| An example of a story with multiple leaflet maps created from a JSON configuration file, geoJSON data, and the javascript file `js/map-files/leaflet-symbol.js` that creates the maps. |
 
 ## Getting Started
 

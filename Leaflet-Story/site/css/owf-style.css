@@ -1,0 +1,246 @@
+.loader {
+  border: 8px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 8px solid #555555;
+  width: 60px;
+  height: 60px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+  margin:0 auto;
+  margin-top: 40vh;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+iframe {
+	height:90vh;
+	width:100%;
+	padding:2px;
+}
+
+.blue-bkgd-text{
+   color:#F4EDEE;
+   font-size:18px;
+}
+
+.blue-bkgd-text a:link{
+   color:#f4edee;
+   text-decoration:underline;
+}
+
+.blue-bkgd-text a:visited{
+   color:#f4edee;
+}
+
+@media(max-width:1200px) {
+    #nav1.navbar .navbar-brand {
+        float:none;
+        display: block;
+    }
+    #nav1.navbar .navbar-nav>.nav-item {
+        float: none;
+        margin-left: .1rem;
+    }
+    #nav1.navbar .navbar-nav {
+        float:none !important;
+    }
+}
+
+.row{
+	padding-top:20px;
+}
+
+.viz-row{
+	margin-left:20px; 
+	margin-right:0px; 
+	margin-bottom: 15px;
+}
+
+.text-right-custom{
+	/*padding:100px; */
+	padding-left:25px!important;
+	padding-right:50px!important;
+	max-height:80vh;
+	overflow:auto;
+}
+
+/* width */
+.custom-scroll::-webkit-scrollbar {
+    width: 10px !important;
+}
+
+/* Track */
+.custom-scroll::-webkit-scrollbar-track {
+    background: #f1f1f1 !important; 
+}
+
+/* Handle */
+.custom-scroll::-webkit-scrollbar-thumb {
+    background: #888 !important; 
+}
+
+/* Handle on hover */
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+    background: #555 !important; 
+}
+
+.text-left-custom{
+	/*padding:100px; */
+	padding-right:25px!important;
+	padding-left:50px!important;
+	max-height:80vh;
+	overflow:auto;
+}
+
+.text-left-custom a{
+	color:black;
+	text-decoration: underline;
+}
+
+.text-image-overlay{
+	background-color:rgba(70,70,70,.7);
+	border-radius:10px;
+	max-height: 80vh;
+	overflow: auto;
+	color:white;
+	font-size:18px;
+}
+
+.text-image-overlay a{
+	color:white;
+	text-decoration: underline;
+}
+
+.text-image-overlay a:hover{
+	color:white;
+}
+
+.text-image-overlay::-webkit-scrollbar{
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+/* Track */
+.text-image-overlay::-webkit-scrollbar-track {
+	border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    background: #f1f1f1; 
+}
+ 
+/* Handle */
+.text-image-overlay::-webkit-scrollbar-thumb {
+	padding-top:5px;
+	border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    background: #888; 
+}
+
+/* Handle on hover */
+.text-image-overlay::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+
+.custom-iframe-border {
+	border-style:solid;
+	border-width:1px;
+	border-color:#9B9FA6;
+	border-top:none;
+	border-bottom:none;
+}
+
+.map-full{
+	margin-top:60px;
+	margin-left:50px;
+	margin-right:50px;
+	width:95%;
+	height:87vh;
+}
+
+.map-left{
+	margin:0px;
+	width:94%;
+	height:80vh;
+}
+
+.map-right{
+	padding-left:10px;
+	margin:0px;
+	width:94%;
+	height:80vh;
+	margin-left:10px;
+}
+
+.side-content{
+	text-align: center;
+}
+
+.side-content img{
+	max-width:90%;
+	display:block;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+#fp-nav {
+	background-color:rgb(255,255,255, .6);
+	border-radius:5px;
+}
+
+#fp-nav ul li .fp-tooltip{
+    color: black!important;
+    background-color: rgb(255,255,255, .8);
+    border-radius: 5px;
+    padding:5px;
+    max-width:none!important;
+    right:25px!important;
+    top: -7px!important;
+}
+
+/* Esri map */
+.embed-container {
+	position: relative; 
+	padding-bottom: 80%; 
+	height: 0; 
+	max-width: 100%;
+} 
+
+.embed-container iframe, 
+.embed-container object, 
+.embed-container iframe{
+	position: absolute; 
+	top: 0; 
+	left: 0; 
+	width: 100%; 
+	height: 100%;
+} 
+
+small{
+	position: absolute; 
+	z-index: 40; 
+	bottom: 0; 
+	margin-bottom: 15px;
+}
+
+table {
+        border: 1px solid black
+}
+
+th {
+	text-align:center;
+	padding:5px;
+        border: 1px solid black
+}
+
+td {
+	text-align:center;
+	border: 1px solid black
+}
