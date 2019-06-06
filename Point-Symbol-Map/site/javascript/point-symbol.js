@@ -159,7 +159,7 @@ var graduatedKeyColors = [];
 
 /* Reads in .json file which describes the format of the map */
 $.ajax({
-    url: "maps/point_layers_2019-05-15.json",
+    url: "data/point_layers_2019-05-15.json",
     async: false,
     dataType: 'json',
     error: function(error){
@@ -399,6 +399,7 @@ $.ajax({
                         These are used for the map key */
                         if(graduatedKeyColors[graduatedKeyNames.length * 2] == null){
                             graduatedKeyColors.push(colors.colorAt(layer_colorRampMin));
+                            graduatedKeyColors.push(colors.colorAt(((layer_colorRampMax-layer_colorRampMin)/2) + layer_colorRampMin));
                             graduatedKeyColors.push(colors.colorAt(layer_colorRampMax));
                         }
                         return '#' + colors.colorAt(strValue);
@@ -482,10 +483,11 @@ legend.onAdd = function (map) {
     if(graduatedKeyNames.length > 0){
         div.innerHTML += '<h4>Graduated Data:</h4>';
         for(let j = 0; j < graduatedKeyNames.length; j++){
-            let k = (j*2);
+            let k = (j*3);
             graduatedKeyColors[k] = '#' + graduatedKeyColors[k];
             graduatedKeyColors[k + 1] = '#' + graduatedKeyColors[k + 1];
-            div.innerHTML += '<i style="background:' + graduatedKeyColors[k] + '"></i> ' + '<i style="background:' + graduatedKeyColors[k + 1] + '"></i> ' + graduatedKeyNames[j] + "<br><br>";
+            graduatedKeyColors[k + 2] = '#' + graduatedKeyColors[k + 2];
+            div.innerHTML += '<i style="background:' + graduatedKeyColors[k] + '"></i> ' + '<i style="background:' + graduatedKeyColors[k + 1] + '"></i> ' + '<i style="background:' + graduatedKeyColors[k + 2] + '"></i> ' + graduatedKeyNames[j] + "<br><br>";
         }
     }
     return div;
