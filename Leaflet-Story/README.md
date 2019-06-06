@@ -4,7 +4,7 @@
 
 An example of a story with multiple leaflet maps created from a JSON configuration file, geoJSON data, and the javascript file `js/map-files/leaflet-symbol.js` that creates the maps.
 
-HTMl code that creates the map:
+HTML code that creates the map:
 
 ````
 <div class="col-lg-8">
